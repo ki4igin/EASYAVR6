@@ -19,7 +19,7 @@ OBJDUMP = $(GCC_PATH)/$(PREFIX)objdump.exe
 SZ = $(GCC_PATH)/$(PREFIX)size.exe
 AVRDUDE := $(GCC_PATH)/avrdude.exe
 
-#Options for avr-gcc
+#Options for avr-gcc`
 CFLAGS = -O3 -Werror -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall
 
 #Linking options for avr-gcc
@@ -38,11 +38,11 @@ DUDEFLAGS += -U flash:w:$(MAIN_HEX_PATH):i
 
 # Sources files needed for building the application 
 SRC = main.c
-SRC += code/lib/semseg.c
+SRC += 
 
 # The headers files needed for building the application
 INCLUDE = -I. 
-INCLUDE += ./code/lib/
+INCLUDE += 
 
 
 all : $(BUILD_DIR)/$(TARGET).elf	

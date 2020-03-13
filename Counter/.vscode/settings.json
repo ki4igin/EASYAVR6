@@ -33,7 +33,7 @@
         "*.c": "c"
     },
     // "C_Cpp.loggingLevel": "Debug",
-    "C_Cpp.clang_format_path": "C:\\toolchain\\clang-format.exe",    
-    
+    "C_Cpp.clang_format_path": "C:\\toolchain\\clang-format.exe",   
+    "files.encoding": "windows1251"
     
 }
