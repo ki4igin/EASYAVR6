@@ -1,11 +1,10 @@
 // Includes --------------------------------------------------------------------
-#include "settings.h"
+#include "main.h"
 #include <avr/io.h>
 #include <avr/sleep.h>
 #include <util/delay.h>
 #include <util/atomic.h>
 #include <avr/pgmspace.h>
-#include "main.h"
 #include "semseg.h"
 // Private Typedef -------------------------------------------------------------
 typedef struct
@@ -25,6 +24,8 @@ int main(void)
 {
   Flags_t  flag  = {0};
   uint16_t count = {0};
+  uint8_t buf[4];
+
   // Инициализация портов
   // PA0...PA7 - входы c PullUp
   DDRA  = 0x00;
@@ -33,9 +34,9 @@ int main(void)
   MCUCR &= ~((1 << SM2) | (1 << SM1) | (1 << SM0) | (1 << SE));
   MCUCR |= (1 << SM1) | (1 << SM0);
   // Инициализация cемисегментных индикаторов
-  SemsegInit();  
+  SemsegInit();
+  SemsegOff();
   // Основной цикл
-  uint8_t buf[4];
   while (1)
   {
     if (PINA & (1 << PINA0))
@@ -55,3 +56,4 @@ int main(void)
     SemsegDisp(buf, sizeof(buf));
   }
 }
+// End File --------------------------------------------------------------------

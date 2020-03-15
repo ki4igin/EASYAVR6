@@ -30,7 +30,8 @@
     ],
     "files.associations": {
         "*.h": "c",
-        "*.c": "c"
+        "*.c": "c",
+        "*.lss": "avr"
     },
     // "C_Cpp.loggingLevel": "Debug",
     "C_Cpp.clang_format_path": "C:\\toolchain\\clang-format.exe",   

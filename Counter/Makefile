@@ -1,78 +1,134 @@
-#Main application file name
-TARGET = Counter
-#Main hex file path in windows format
-BUILD_DIR = build
+###############################################################################
+# Main application file name
+###############################################################################
+TARGET = $(notdir $(shell pwd))
 
-MAIN_HEX_PATH = $(BUILD_DIR)/$(TARGET).hex
 
-MCU = atmega16
+###############################################################################
+# Build path
+###############################################################################
+ifeq ($(DEBUG), 1)
+BUILD_DIR := build/debug
+else
+BUILD_DIR := build/release
+endif
 
-# Compiler and other Section
 
-GCC_PATH = /mnt/c/toolchain/avr-gcc-9.2.0-x64-mingw/bin
-# GCC_PATH = C:/toolchain/avr-gcc-9.2.0-x64-mingw/bin
+###############################################################################
+# Source
+###############################################################################
+# C includes
+C_INCLUDES:= $(shell find code -type d)
+
+# C sources
+C_SOURCES := $(wildcard $(addsuffix /*.c, $(C_INCLUDES)))
+
+
+###############################################################################
+# Compilers and Utilities binaries
+###############################################################################
 PREFIX = avr-
-
-CC = $(GCC_PATH)/$(PREFIX)gcc.exe
-OBJCOPY = $(GCC_PATH)/$(PREFIX)objcopy.exe
-OBJDUMP = $(GCC_PATH)/$(PREFIX)objdump.exe
-SZ = $(GCC_PATH)/$(PREFIX)size.exe
-AVRDUDE := $(GCC_PATH)/avrdude.exe
-
-#Options for avr-gcc`
-CFLAGS = -O3 -Werror -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall
-
-#Linking options for avr-gcc
-LFLAGS = -O3 -mmcu=$(MCU) -Wl,--gc-sections
-
-#Options for HEX file generation
-HFLAGS = -j .text -j .data -O ihex
-
-#Options for avrdude to burn the hex file
-#MMCU model here according to avrdude options
-DUDEFLAGS = -c avr109
-DUDEFLAGS += -p m32u4  
-DUDEFLAGS += -P COM4
-DUDEFLAGS += -b 1200
-DUDEFLAGS += -U flash:w:$(MAIN_HEX_PATH):i
-
-# Sources files needed for building the application 
-SRC = main.c
-SRC += 
-
-# The headers files needed for building the application
-INCLUDE = -I. 
-INCLUDE += 
+# The gcc compiler bin path (default: current folder)
+ifndef GCC_PATH
+GCC_PATH:= /mnt/c/toolchain/avr-gcc-9.2.0-x64-mingw/bin
+endif
+CC 		:= $(GCC_PATH)/$(PREFIX)gcc.exe
+OBJCOPY := $(GCC_PATH)/$(PREFIX)objcopy.exe
+OBJDUMP := $(GCC_PATH)/$(PREFIX)objdump.exe
+SZ 		:= $(GCC_PATH)/$(PREFIX)size.exe
 
 
-all : $(BUILD_DIR)/$(TARGET).elf	
+###############################################################################
+# CFLAGS
+###############################################################################
+# CPU
+CPU := -mmcu=atmega16
+
+# MCU
+MCU := $(CPU)
+
+# Optimization and Debug level
+ifeq ($(DEBUG), 1)
+OPT := -O1 -g2
+else
+OPT := -O3
+endif
+
+# Compile gcc flags
+CFLAGS := $(OPT) $(MCU)
+CFLAGS += -ffunction-sections -fdata-sections -fpack-struct -fshort-enums
+CFLAGS += -std=gnu11
+CFLAGS += -Werror -Wall
+CFLAGS += -MMD -MP
+
+###############################################################################
+# LFLAGS
+###############################################################################
+# Linking options for avr-gcc
+LFLAGS := $(MCU) -Wl,--gc-sections
+
+
+###############################################################################
+# HFLAGS
+###############################################################################
+# Options for HEX file generation
+HFLAGS := -j .text -j .data -O ihex
+
+
+###############################################################################
+# build the application
+###############################################################################
+# list of objects
+OBJECTS := $(addprefix $(BUILD_DIR)/, $(notdir $(C_SOURCES:.c=.o)))
+vpath %.c $(sort $(C_INCLUDES))
+
+# build
+all: $(BUILD_DIR)/$(TARGET).elf	
 	$(OBJCOPY) $(HFLAGS) $< $(BUILD_DIR)/$(TARGET).hex
 	$(OBJDUMP) -h -S $< > $(BUILD_DIR)/$(TARGET).lss
 	
-$(BUILD_DIR)/$(TARGET).elf: $(BUILD_DIR)/main.o
-	@echo $<
-	$(CC) $< $(INCLUDE) $(LFLAGS) -o $@
+$(BUILD_DIR)/$(TARGET).elf: $(OBJECTS) Makefile
+	@echo $<	
+	$(CC) $(OBJECTS) $(LFLAGS) -o $@	
+	@echo
 	$(SZ) $@
+	@echo
 	 
-$(BUILD_DIR)/main.o: code/main.c Makefile | $(BUILD_DIR)
-	@echo $<
-	$(CC) -c $< $(CFLAGS) -o $@
+$(BUILD_DIR)/%.o: %.c Makefile | $(BUILD_DIR)
+	@echo $<	
+	$(CC) -c $< $(addprefix -I, $(C_INCLUDES)) $(CFLAGS) -o $@
 
-$(BUILD_DIR):
-	mkdir $@
-# main:
-# 	@echo $(CC)
+$(BUILD_DIR): info
+	mkdir -p $@
 
-
-#######################################
+###############################################################################
 # clean up
-#######################################
+###############################################################################
 .PHONY: clean
 clean:
-	-rm -fR $(BUILD_DIR)
-  
-# commands Section
+	@echo -rm -fR $(dir $(BUILD_DIR))
+	-rm -fR $(dir $(BUILD_DIR))
+
+###############################################################################
+# Flash
+###############################################################################
 .PHONY: flash
 flash : 	
 	$(AVRDUDE) $(DUDEFLAGS)
 
+###############################################################################
+# Info
+###############################################################################
+info:
+	@echo "\033[32;1;40m""Compiler version:"
+	$(CC) --version
+	@echo "\033[32;1;40m""Compile flags:""\033[0m" $(CFLAGS)
+	@echo "\033[32;1;40m""Linking flags:""\033[0m" $(LFLAGS)	
+	@echo $(OBJECTS)
+	@echo 
+
+###############################################################################
+# dependencies
+###############################################################################
+-include $(wildcard $(BUILD_DIR)/*.d)
+###############################################################################
