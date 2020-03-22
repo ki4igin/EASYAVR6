@@ -10,8 +10,8 @@
 // Тип пользовательских флагов
 typedef struct
 {
-    uint8_t btnOn : 1,  // Флаг нажатия кнопки
-        ledDir : 1;
+    uint8_t btnOn : 1;  // Флаг нажатия кнопки
+    uint8_t ledDir : 1;
 } Flags_t;
 
 // Private Variables -----------------------------------------------------------
