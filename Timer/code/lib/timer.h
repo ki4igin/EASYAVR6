@@ -11,7 +11,7 @@
 // Variables -------------------------------------------------------------------
 
 // Function prototypes ---------------------------------------------------------
-void TimerInit(void);
+void TimerInit(uint8_t ocr);
 void TimerInc(void);
 void TimerComp(void);
 // Inline Functions ------------------------------------------------------------

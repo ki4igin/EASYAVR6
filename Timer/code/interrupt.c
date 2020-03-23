@@ -3,23 +3,15 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 
+#include "main.h"
 #include "timer.h"
 #include "semseg.h"
 
-// Private Typedef -------------------------------------------------------------
-// Тип пользовательских флагов
-typedef struct
-{
-    uint8_t btnOn : 1;  // Флаг нажатия кнопки
-    uint8_t ledDir : 1;
-} Flags_t;
-
 // Private Variables -----------------------------------------------------------
 extern uint8_t timerOcr;
-
-Flags_t flag   = {0};  // Переменная пользовательских флагов
-uint8_t buf[4] = {0};  // Буфер для хранения 4-х разрядного числа для
-                       // вывода на семисегментные индикаторы
+extern Flags_t flag;          // Переменная пользовательских флагов
+extern uint8_t buf[4];  // Буфер для хранения 4-х разрядного числа для
+                              // вывода на семисегментные индикаторы
 
 // Handlers --------------------------------------------------------------------
 // Timer2 Overflow Handler
@@ -66,13 +58,12 @@ ISR(TIMER2_OVF_vect)
     }
 }
 
-// IRQ1 Handler
+// Timer0 Overflow Handler
 ISR(TIMER0_OVF_vect)
 {
-    TimerInc();
+    TimerInc(); // Инкремент программного таймера
 
-    uint8_t buf[4];
-    uint8_t kd = OCR1BL * 100 / 256;
+    uint8_t kd = OCR1BL * 100 / 256;  // Вычисление коэффициента заполнения
 
     SemsegBin2Bcd(kd, buf, sizeof(buf));
     SemsegDisp(buf, sizeof(buf));
