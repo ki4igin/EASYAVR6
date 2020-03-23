@@ -44,7 +44,7 @@ void SemsegInit(void)
     CTRL_DDR |= CTRL_PIN_MASK;
     CTRL_PORT &= ~CTRL_PIN_MASK;
     // Включение первого индикатора
-    CTRL_PORT |= CTRL_PIN0;
+    CTRL_PORT |= (1 << CTRL_PIN0);
 }
 
 /*******************************************************************************
