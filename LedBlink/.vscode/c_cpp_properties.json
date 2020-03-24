@@ -3,18 +3,17 @@
         {
             "name": "avr-gcc",
             "includePath": [
-                "${workspaceFolder}/**",
-                "C:/toolchain/avr-gcc-9.2.0-x64-mingw/avr/include"
+                "${workspaceFolder}/code/**",
+                "C:/toolchain/avr-gcc-9.2.0-x64-mingw/avr/include/**"
             ],
             "windowsSdkVersion": "10.0.17763.0",
-            "compilerPath": "C:/toolchain/avr-gcc-9.2.0-x64-mingw/bin/avr-gcc.exe",
+           "compilerPath": "C:/toolchain/avr-gcc-9.2.0-x64-mingw/bin/avr-gcc.exe",
             "cStandard": "c11",
             "cppStandard": "c++17",
             "intelliSenseMode": "gcc-x64",
             "browse": {
                 "limitSymbolsToIncludedHeaders": true
             }
-
         }
     ],
     "version": 4

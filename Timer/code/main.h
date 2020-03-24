@@ -9,7 +9,7 @@
 typedef struct
 {
     uint8_t btnOn : 1;  // Флаг нажатия кнопки
-    uint8_t ledDir : 1;
+    uint8_t ledDir : 1; // Флаг направления "бегущего огонька"
 } Flags_t;
 
 #endif

@@ -30,7 +30,7 @@ C_SOURCES := $(wildcard $(addsuffix /*.c, $(C_INCLUDES)))
 PREFIX = avr-
 # The gcc compiler bin path (default: current folder)
 ifndef GCC_PATH
-GCC_PATH:= /mnt/c/toolchain/avr-gcc-9.2.0-x64-mingw/bin
+GCC_PATH:= C:/toolchain/avr-gcc-9.2.0-x64-mingw/bin
 endif
 CC 		:= $(GCC_PATH)/$(PREFIX)gcc.exe
 OBJCOPY := $(GCC_PATH)/$(PREFIX)objcopy.exe
@@ -87,15 +87,14 @@ all: $(BUILD_DIR)/$(TARGET).elf
 	$(OBJCOPY) $(HFLAGS) $< $(BUILD_DIR)/$(TARGET).hex
 	$(OBJDUMP) -h -S $< > $(BUILD_DIR)/$(TARGET).lss
 	
-$(BUILD_DIR)/$(TARGET).elf: $(OBJECTS) Makefile
-	@echo $<	
+$(BUILD_DIR)/$(TARGET).elf: $(OBJECTS) Makefile	
 	$(CC) $(OBJECTS) $(LFLAGS) -o $@	
 	@echo
 	$(SZ) $@
-	@echo
+	
 	 
 $(BUILD_DIR)/%.o: %.c Makefile | $(BUILD_DIR)
-	@echo $<	
+	@echo $<
 	$(CC) -c $< $(addprefix -I, $(C_INCLUDES)) $(CFLAGS) -o $@
 
 $(BUILD_DIR): info
@@ -120,12 +119,13 @@ flash :
 # Info
 ###############################################################################
 info:
-	@echo "\033[32;1;40m""Compiler version:"
+	@echo -e "\033[32;1;40m""Compiler version:""\033[0m"
 	$(CC) --version
-	@echo "\033[32;1;40m""Compile flags:""\033[0m" $(CFLAGS)
-	@echo "\033[32;1;40m""Linking flags:""\033[0m" $(LFLAGS)	
-	@echo $(OBJECTS)
-	@echo 
+	@echo -e "\033[32;1;40m""Compile flags:""\033[0m" $(CFLAGS)
+	@echo -e "\033[32;1;40m""Linking flags:""\033[0m" $(LFLAGS)
+	@echo
+	# @echo $(OBJECTS)
+	# @echo 
 
 ###############################################################################
 # dependencies

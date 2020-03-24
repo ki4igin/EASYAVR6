@@ -9,15 +9,10 @@
             "command": "make",
             "args": [
                 "all",
-                "GCC_PATH=/mnt/c/toolchain/avr-gcc-9.2.0-x64-mingw/bin",
+                "GCC_PATH=C:/toolchain/avr-gcc-9.2.0-x64-mingw/bin",
                 "-s",
                 "-j"
             ],
-            "options": {
-                "shell": {
-                    "executable": "wsl.exe"
-                }
-            },
             "group": {
                 "kind": "build",
                 "isDefault": true
@@ -30,16 +25,11 @@
             "command": "make",
             "args": [
                 "all",
-                "GCC_PATH=/mnt/c/toolchain/avr-gcc-9.2.0-x64-mingw/bin",
+                "GCC_PATH=C:/toolchain/avr-gcc-9.2.0-x64-mingw/bin",
                 "DEBUG=1",
                 "-s",
                 "-j"
             ],
-            "options": {
-                "shell": {
-                    "executable": "wsl.exe"
-                }
-            },
             "group": {
                 "kind": "build",
                 "isDefault": true
@@ -54,23 +44,10 @@
                 "-s",
                 "clean"
             ],
-            "options": {
-                "shell": {
-                    "executable": "wsl.exe"
-                }
-            },
             "group": {
                 "kind": "build",
                 "isDefault": true
-            },
-            "presentation": {
-                "echo": true,
-                "reveal": "always",
-                "focus": false,
-                "panel": "shared",
-                "showReuseMessage": true,
-                "clear": false
-            },
+            },           
             "problemMatcher": []
         },
         {
@@ -80,16 +57,11 @@
             "args": [
                 "test"
             ],
-            "options": {
-                "shell": {
-                    "executable": "wsl.exe"
-                }
-            },
             "group": {
                 "kind": "build",
                 "isDefault": true
             },
             "problemMatcher": []
-        }
+        }       
     ]
 }
