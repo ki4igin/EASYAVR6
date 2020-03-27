@@ -51,7 +51,7 @@ MCU := $(CPU)
 ifeq ($(DEBUG), 1)
 OPT := -O1 -g2
 else
-OPT := -O3
+OPT := -Os
 endif
 
 # Compile gcc flags
@@ -84,7 +84,7 @@ vpath %.c $(sort $(C_INCLUDES))
 
 # build
 all: $(BUILD_DIR)/$(TARGET).elf	
-	$(OBJCOPY) $(HFLAGS) $< $(BUILD_DIR)/$(TARGET).hex
+	$(OBJCOPY) $(HFLAGS) $< $(BUILD_DIR)/$(TARGET).hex	
 	$(OBJDUMP) -h -S $< > $(BUILD_DIR)/$(TARGET).lss
 	
 $(BUILD_DIR)/$(TARGET).elf: $(OBJECTS) Makefile	
