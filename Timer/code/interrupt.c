@@ -27,9 +27,9 @@ ISR(TIMER2_OVF_vect)
     иначе, если нажата кнопка PD7, то уменьшаем скорость "бегущего огонька";
     иначе, сбрасываем флаг btnOn
     */
-if (!(PIND & (1 << PIND0)))
-{
-    OCR1BL++;
+    if (!(PIND & (1 << PIND0)))
+    {
+        OCR1BL++;
     }
     else if (!(PIND & (1 << PIND1)))
     {
@@ -40,8 +40,8 @@ if (!(PIND & (1 << PIND0)))
         // Если флаг btnOn установлен, то кнопка не отжата, пропускаем обработку
         if (!flag.btnOn)
         {
-            flag.btnOn  = 1;
-            flag.ledDir = !flag.ledDir;
+            flag.btnOn = 1;
+            flag.ledDir++;
         }
     }
     else if (!(PIND & (1 << PIND6)))
@@ -88,13 +88,17 @@ void TimerComp(void)
     "бегущего огонька" влево;
     иначе, сдвигаем положение "бегущего огонька" вправо
     */
+    uint8_t temp = PORTA;
     if (flag.ledDir)
     {
-        PORTA = (PORTA == 0) ? 0x80 : (PORTA >> 1);
+        temp >>= 1;
+        temp = temp ? temp : 0x80;
     }
     else
     {
-        PORTA = (PORTA == 0) ? 0x01 : (PORTA << 1);
+        temp <<= 1;
+        temp = temp ? temp : 0x01;
     }
+    PORTA = temp;
 }
 // End File --------------------------------------------------------------------
