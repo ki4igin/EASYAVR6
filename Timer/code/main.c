@@ -1,5 +1,5 @@
 /*******************************************************************************
-Target:  Counter
+Target:  Timer
 Device:  ATmega16;
 Board:   EasyAVR6;
 Clock:   ext.clock 8 MHz

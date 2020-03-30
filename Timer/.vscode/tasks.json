@@ -9,7 +9,8 @@
             "command": "make",
             "args": [
                 "all",
-                "GCC_PATH=C:/toolchain/avr-gcc-9.2.0-x64-mingw/bin",
+                // "GCC_PATH=C:/toolchain/avr-gcc-9.2.0-x64-mingw/bin",
+                "GCC_PATH=C:/toolchain/avr8/avr8-gnu-toolchain/bin",
                 "-s",
                 "-j"
             ],
@@ -25,7 +26,8 @@
             "command": "make",
             "args": [
                 "all",
-                "GCC_PATH=C:/toolchain/avr-gcc-9.2.0-x64-mingw/bin",
+                // "GCC_PATH=C:/toolchain/avr-gcc-9.2.0-x64-mingw/bin",
+                "GCC_PATH=C:/toolchain/avr8/avr8-gnu-toolchain/bin",
                 "DEBUG=1",
                 "-s",
                 "-j"
