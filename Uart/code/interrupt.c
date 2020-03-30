@@ -3,26 +3,18 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 
-#include "timer.h"
-#include "semseg.h"
+#include "main.h"
+#include "semseg.h"  // Заголовочный файл для работы с семисегментными индикаторами
 
-// Private Typedef -------------------------------------------------------------
-// Тип пользовательских флагов
-typedef struct
-{
-    uint8_t btnOn : 1,  // Флаг нажатия кнопки
-        ledDir : 1;
-} Flags_t;
-
-// Private Variables -----------------------------------------------------------
-extern uint8_t timerOcr;
-
-Flags_t flag   = {0};  // Переменная пользовательских флагов
-uint8_t buf[4] = {0};  // Буфер для хранения 4-х разрядного числа для
-                       // вывода на семисегментные индикаторы
+// Variables -------------------------------------------------------------------
+uint8_t numByte = {0};
+uint8_t cntRx   = {0};
 
 // Handlers --------------------------------------------------------------------
-// Timer2 Overflow Handler
+/*******************************************************************************
+Timer2 Overflow Handler
+Используется для обработки нажатия кнопок
+*******************************************************************************/
 ISR(TIMER2_OVF_vect)
 {
     /* Если нажата кнопка PВ6, то переключаем отображаемый байт данных на
@@ -32,14 +24,17 @@ ISR(TIMER2_OVF_vect)
     */
     if (!(PINB & (1 << PINB6)))
     {
+        // Если флаг btnOn установлен, то кнопка не отжата, пропускаем обработку
         if (!flag.btnOn)
         {
             flag.btnOn = 1;
-            numByte    = (numByte < 4) ? numByte + 1 : 0;
+            numByte++;
+            numByte = (numByte >= NBUF_RX) ? 0 : numByte;
         }
     }
     else if (!(PINB & (1 << PINB7)))
     {
+        // Если флаг btnOn установлен, то кнопка не отжата, пропускаем обработку
         if (!flag.btnOn)
         {
             flag.btnOn = 1;
@@ -52,28 +47,65 @@ ISR(TIMER2_OVF_vect)
     }
 }
 
-// IRQ1 Handler
+/*******************************************************************************
+Timer1 CompareA Handler
+*******************************************************************************/
+ISR(TIMER1_COMPA_vect)
+{
+    cntRx = 0;
+    TCCR1B &= ~((1 << CS12) | (1 << CS11) | (1 << CS10));
+}
+
+/*******************************************************************************
+Timer0 Overflow Handler
+*******************************************************************************/
 ISR(TIMER0_OVF_vect)
 {
-    TimerInc();
+    uint8_t  buf[4];
+    uint8_t* pbuf = buf;
+    uint8_t  temp = dataRx[numByte];
 
-    uint8_t buf[4];
-    uint8_t kd = OCR1BL * 100 / 256;
+    *pbuf++ = temp & 0x0F;
+    *pbuf++ = temp >> 4;
+    *pbuf++ = 16;
+    *pbuf++ = numByte;
 
-    SemsegBin2Bcd(kd, buf, sizeof(buf));
     SemsegDisp(buf, sizeof(buf));
 }
 
-// Timer Compare Handler
-void TimerComp(void)
+/*******************************************************************************
+USART RX Complete Handler
+*******************************************************************************/
+ISR(USART_RXC_vect)
 {
-    if (flag.ledDir)
+    if (!cntRx)
     {
-        PORTA = (PORTA == 0) ? 0x80 : PORTA >> 1;
+        TCNT1 = 0;
+        TCCR1B |= (1 << CS10);
     }
-    else
+    bufRx[cntRx] = UDR;
+    cntRx++;
+    if (cntRx == NBUF_RX)
     {
-        PORTA = (PORTA == 0) ? 0x01 : PORTA << 1;
+        TCCR1B &= ~((1 << CS12) | (1 << CS11) | (1 << CS10));
+        cntRx   = 0;
+        flag.rx = 1;
+    }
+}
+
+/*******************************************************************************
+UDR Empty Handler
+*******************************************************************************/
+ISR(USART_UDRE_vect)
+{
+    static uint8_t cntTx;
+
+    UDR = bufTx[cntTx];
+    cntTx++;
+    if (cntTx == NBUF_TX)
+    {
+        UCSRB &= ~(1 << UDRIE);
+        cntTx = 0;
     }
 }
 // End File --------------------------------------------------------------------

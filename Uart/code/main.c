@@ -21,37 +21,19 @@ Clock:   ext.clock 8 MHz
 
 // Includes --------------------------------------------------------------------
 #include "main.h"
-#include <avr/io.h>      // Заголовочный файл для работы с РВВ МК
-#include <avr/sleep.h>   // Заголовочный файл для работы со спящим режимом
-#include <util/delay.h>  // Заголовочный файл для работы с задержками
-#include <avr/interrupt.h>
 
-#include "semseg.h"  // Заголовочный файл для работы с семисегментными индикаторами
-#include "timer.h"
+// Variables -------------------------------------------------------------------
+uint8_t bufTx[NBUF_TX]  = {0};  // Буфер передачи
+uint8_t bufRx[NBUF_RX]  = {0};  // Буфер приема
+uint8_t dataRx[NBUF_RX] = {0};  // Массив принятых данных
 
-// Private Macro ---------------------------------------------------------------
-#define NBUF_TX 3
-#define NBUF_RX 4
-
-// Private Typedef -------------------------------------------------------------
-// Тип пользовательских флагов
-typedef struct
-{
-    uint8_t btnOn : 1;  // Флаг нажатия кнопки
-    uint8_t tx : 1;
-    uint8_t rx : 1;
-} Flags_t;
-
-// Private Variables -----------------------------------------------------------
-uint8_t buf_tx[NBUF_TX] = {0};
-uint8_t buf_rx[NBUF_RX] = {0};
-uint8_t buf_data[NBUF_RX] = {0};
+Flags_t flag = {0};  // Переменная пользовательских флагов
 
 // Functions -------------------------------------------------------------------
+static inline uint8_t Crc(uint8_t* pbuf, uint8_t bufSize);
+
 int main(void)
 {
-    Flags_t flag = {0};
-
     /* Инициализация портов
     PB6...PB7 - входы с PullUp (к ним подключены кнопки)
     PA0...PA7 - входы с PullUp (к ним подключен контактный переключатель)
@@ -95,8 +77,8 @@ int main(void)
     */
     PORTD |= (1 << PD0);  // Включаем PullUp вывода PD0
 
-    uint16_t ubrr = F_CPU / (16 * 19200) - 1;  // Задаем значение предделителя
-    UBRRH         = (uint8_t)(ubrr >> 8);      // UART для скорости 19200
+    uint16_t ubrr = F_CPU / (16 * 19200UL) - 1;  // Задаем значение предделителя
+    UBRRH         = (uint8_t)(ubrr >> 8);        // UART для скорости 19200
     UBRRL         = (uint8_t)ubrr;
 
     UCSRC |= (1 << URSEL) | (1 << UCSZ0) | (1 << UCSZ1);  // Задаем режим UART
@@ -114,25 +96,42 @@ int main(void)
     {
         if (flag.tx)
         {
-            flag.tx   = 0;
-            buf_tx[0] = 0x80;
-            buf_tx[1] = PINA;
-            buf_tx[2] = (uint8_t)(buf_tx[0] + buf_tx[1]);
-            uartSend();
+            flag.tx = 0;
+
+            uint8_t* pbuf = bufTx;
+
+            *pbuf++ = 0x80;
+            *pbuf++ = PINA;
+            *pbuf++ = Crc(bufTx, NBUF_TX - 1);
+
+            UCSRB |= (1 << UDRIE);
         }
         if (flag.rx)
         {
             flag.rx = 0;
-            uint8_t crc = (uint8_t)(buf_rx[0] + buf_rx[1] + buf_rx[2]);
-            if (buf_rx[3] == crc)
+
+            uint8_t crc = Crc((uint8_t*)bufRx, NBUF_RX - 1);
+
+            if (bufRx[NBUF_RX - 1] == crc)
             {
-                buf_data[3] = buf_rx[3];
-                buf_data[2] = buf_rx[2];
-                buf_data[1] = buf_rx[1];
-                buf_data[0] = buf_rx[0];
+                uint8_t* pbufRx  = (uint8_t*)bufRx;
+                uint8_t* pdataRx = dataRx;
+                for (uint8_t i = 0; i < NBUF_RX; i++)
+                {
+                    *pdataRx++ = *pbufRx++;
+                }
             }
-            
         }
     }
+}
+
+static inline uint8_t Crc(uint8_t* pbuf, uint8_t bufSize)
+{
+    uint8_t crc = 0;
+    for (uint8_t i = 0; i < bufSize; i++)
+    {
+        crc += *pbuf++;
+    }
+    return crc;
 }
 // End File --------------------------------------------------------------------

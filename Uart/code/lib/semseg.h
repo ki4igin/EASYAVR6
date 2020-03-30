@@ -3,7 +3,8 @@
 
 // Includes --------------------------------------------------------------------
 #include "settings.h"
-#include <avr/io.h>
+#include <avr/io.h>        // Заголовочный файл для работы с РВВ МК
+#include <avr/pgmspace.h>  // Заголовчный файл для работы с памятью программ МК
 
 // Function prototypes ---------------------------------------------------------
 void SemsegInit(void);

@@ -51,14 +51,15 @@ MCU := $(CPU)
 ifeq ($(DEBUG), 1)
 OPT := -O1 -g2
 else
-OPT := -O3
+OPT := -Os
 endif
 
 # Compile gcc flags
 CFLAGS := $(OPT) $(MCU)
 CFLAGS += -ffunction-sections -fdata-sections -fpack-struct -fshort-enums
-CFLAGS += -std=gnu11
-CFLAGS += -Werror -Wall
+CFLAGS += -mshort-calls
+# CFLAGS += -std=gnu11
+CFLAGS +=  -Winline -Wall  #-Werror -pedantic
 CFLAGS += -MMD -MP
 
 ###############################################################################
@@ -84,7 +85,7 @@ vpath %.c $(sort $(C_INCLUDES))
 
 # build
 all: $(BUILD_DIR)/$(TARGET).elf	
-	$(OBJCOPY) $(HFLAGS) $< $(BUILD_DIR)/$(TARGET).hex
+	$(OBJCOPY) $(HFLAGS) $< $(BUILD_DIR)/$(TARGET).hex	
 	$(OBJDUMP) -h -S $< > $(BUILD_DIR)/$(TARGET).lss
 	
 $(BUILD_DIR)/$(TARGET).elf: $(OBJECTS) Makefile	
@@ -124,8 +125,8 @@ info:
 	@echo -e "\033[32;1;40m""Compile flags:""\033[0m" $(CFLAGS)
 	@echo -e "\033[32;1;40m""Linking flags:""\033[0m" $(LFLAGS)
 	@echo
-	# @echo $(OBJECTS)
-	# @echo 
+	@echo $(OBJECTS)
+	@echo 
 
 ###############################################################################
 # dependencies
