@@ -1,0 +1,2513 @@
+GAS LISTING C:\Users\Artem\AppData\Local\Temp\ccYsrGOs.s 			page 1
+
+
+   1               		.file	"lcd16x2.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   7               		.text
+   8               	.Ltext0:
+   9               		.cfi_sections	.debug_frame
+  10               		.section	.text.LcdSendHfByte,"ax",@progbits
+  11               		.type	LcdSendHfByte, @function
+  12               	LcdSendHfByte:
+  13               	.LFB14:
+  14               		.file 1 "code/lib/lcd16x2.c"
+  15               		.loc 1 102 0
+  16               		.cfi_startproc
+  17               	.LVL0:
+  18               	/* prologue: function */
+  19               	/* frame size = 0 */
+  20               	/* stack size = 0 */
+  21               	.L__stack_usage = 0
+  22               		.loc 1 103 0
+  23 0000 939A      		sbi 0x12,3
+  24               		.loc 1 105 0
+  25 0002 92B3      		in r25,0x12
+  26               	.LVL1:
+  27               		.loc 1 106 0
+  28 0004 9F70      		andi r25,lo8(15)
+  29               	.LVL2:
+  30               		.loc 1 107 0
+  31 0006 892B      		or r24,r25
+  32               	.LVL3:
+  33               		.loc 1 108 0
+  34 0008 82BB      		out 0x12,r24
+  35               		.loc 1 110 0
+  36 000a 9398      		cbi 0x12,3
+  37 000c 0895      		ret
+  38               		.cfi_endproc
+  39               	.LFE14:
+  40               		.size	LcdSendHfByte, .-LcdSendHfByte
+  41               		.section	.text.LcdSendHfCmd,"ax",@progbits
+  42               		.type	LcdSendHfCmd, @function
+  43               	LcdSendHfCmd:
+  44               	.LFB11:
+  45               		.loc 1 84 0
+  46               		.cfi_startproc
+  47               	.LVL4:
+  48               	/* prologue: function */
+  49               	/* frame size = 0 */
+  50               	/* stack size = 0 */
+  51               	.L__stack_usage = 0
+  52               		.loc 1 85 0
+  53 0000 9298      		cbi 0x12,2
+  54               		.loc 1 86 0
+  55 0002 0E94 0000 		call LcdSendHfByte
+  56               	.LVL5:
+  57 0006 0895      		ret
+GAS LISTING C:\Users\Artem\AppData\Local\Temp\ccYsrGOs.s 			page 2
+
+
+  58               		.cfi_endproc
+  59               	.LFE11:
+  60               		.size	LcdSendHfCmd, .-LcdSendHfCmd
+  61               		.section	.text.LcdSendCmd,"ax",@progbits
+  62               	.global	LcdSendCmd
+  63               		.type	LcdSendCmd, @function
+  64               	LcdSendCmd:
+  65               	.LFB10:
+  66               		.loc 1 78 0
+  67               		.cfi_startproc
+  68               	.LVL6:
+  69 0000 CF93      		push r28
+  70               	.LCFI0:
+  71               		.cfi_def_cfa_offset 3
+  72               		.cfi_offset 28, -2
+  73               	/* prologue: function */
+  74               	/* frame size = 0 */
+  75               	/* stack size = 1 */
+  76               	.L__stack_usage = 1
+  77 0002 C82F      		mov r28,r24
+  78               		.loc 1 79 0
+  79 0004 9298      		cbi 0x12,2
+  80               	.LVL7:
+  81               	.LBB24:
+  82               	.LBB25:
+  83               		.loc 1 97 0
+  84 0006 807F      		andi r24,lo8(-16)
+  85               	.LVL8:
+  86 0008 0E94 0000 		call LcdSendHfByte
+  87               	.LVL9:
+  88               		.loc 1 98 0
+  89 000c 8C2F      		mov r24,r28
+  90 000e 8295      		swap r24
+  91 0010 807F      		andi r24,lo8(-16)
+  92 0012 0E94 0000 		call LcdSendHfByte
+  93               	.LVL10:
+  94               	/* epilogue start */
+  95               	.LBE25:
+  96               	.LBE24:
+  97               		.loc 1 81 0
+  98 0016 CF91      		pop r28
+  99               	.LVL11:
+ 100 0018 0895      		ret
+ 101               		.cfi_endproc
+ 102               	.LFE10:
+ 103               		.size	LcdSendCmd, .-LcdSendCmd
+ 104               		.section	.text.LcdInit,"ax",@progbits
+ 105               	.global	LcdInit
+ 106               		.type	LcdInit, @function
+ 107               	LcdInit:
+ 108               	.LFB6:
+ 109               		.loc 1 29 0
+ 110               		.cfi_startproc
+ 111               	/* prologue: function */
+ 112               	/* frame size = 0 */
+ 113               	/* stack size = 0 */
+ 114               	.L__stack_usage = 0
+GAS LISTING C:\Users\Artem\AppData\Local\Temp\ccYsrGOs.s 			page 3
+
+
+ 115               		.loc 1 30 0
+ 116 0000 81B3      		in r24,0x11
+ 117 0002 8C6F      		ori r24,lo8(-4)
+ 118 0004 81BB      		out 0x11,r24
+ 119               	.LVL12:
+ 120               	.LBB26:
+ 121               	.LBB27:
+ 122               		.file 2 "c:\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\util\\delay.h"
+ 123               		.loc 2 187 0
+ 124 0006 8FE2      		ldi r24,lo8(29999)
+ 125 0008 95E7      		ldi r25,hi8(29999)
+ 126 000a 0197      	1:	sbiw r24,1
+ 127 000c 01F4      		brne 1b
+ 128 000e 00C0      		rjmp .
+ 129 0010 0000      		nop
+ 130               	.LVL13:
+ 131               	.LBE27:
+ 132               	.LBE26:
+ 133               		.loc 1 32 0
+ 134 0012 80E3      		ldi r24,lo8(48)
+ 135 0014 0E94 0000 		call LcdSendHfCmd
+ 136               	.LVL14:
+ 137               	.LBB28:
+ 138               	.LBB29:
+ 139               		.loc 2 187 0
+ 140 0018 8FE0      		ldi r24,lo8(9999)
+ 141 001a 97E2      		ldi r25,hi8(9999)
+ 142 001c 0197      	1:	sbiw r24,1
+ 143 001e 01F4      		brne 1b
+ 144 0020 00C0      		rjmp .
+ 145 0022 0000      		nop
+ 146               	.LVL15:
+ 147               	.LBE29:
+ 148               	.LBE28:
+ 149               		.loc 1 34 0
+ 150 0024 80E3      		ldi r24,lo8(48)
+ 151 0026 0E94 0000 		call LcdSendHfCmd
+ 152               	.LVL16:
+ 153               	.LBB30:
+ 154               	.LBB31:
+ 155               		.loc 2 276 0
+ 156 002a 87EC      		ldi r24,lo8(199)
+ 157 002c 90E0      		ldi r25,hi8(199)
+ 158 002e 0197      	1:	sbiw r24,1
+ 159 0030 01F4      		brne 1b
+ 160 0032 00C0      		rjmp .
+ 161 0034 0000      		nop
+ 162               	.LVL17:
+ 163               	.LBE31:
+ 164               	.LBE30:
+ 165               		.loc 1 36 0
+ 166 0036 80E3      		ldi r24,lo8(48)
+ 167 0038 0E94 0000 		call LcdSendHfCmd
+ 168               	.LVL18:
+ 169               	.LBB32:
+ 170               	.LBB33:
+ 171               		.loc 2 276 0
+GAS LISTING C:\Users\Artem\AppData\Local\Temp\ccYsrGOs.s 			page 4
+
+
+ 172 003c 95E8      		ldi r25,lo8(-123)
+ 173 003e 9A95      	1:	dec r25
+ 174 0040 01F4      		brne 1b
+ 175 0042 0000      		nop
+ 176               	.LVL19:
+ 177               	.LBE33:
+ 178               	.LBE32:
+ 179               		.loc 1 39 0
+ 180 0044 80E2      		ldi r24,lo8(32)
+ 181 0046 0E94 0000 		call LcdSendHfCmd
+ 182               	.LVL20:
+ 183               	.LBB34:
+ 184               	.LBB35:
+ 185               		.loc 2 276 0
+ 186 004a 85E8      		ldi r24,lo8(-123)
+ 187 004c 8A95      	1:	dec r24
+ 188 004e 01F4      		brne 1b
+ 189 0050 0000      		nop
+ 190               	.LVL21:
+ 191               	.LBE35:
+ 192               	.LBE34:
+ 193               		.loc 1 42 0
+ 194 0052 80E2      		ldi r24,lo8(32)
+ 195 0054 0E94 0000 		call LcdSendCmd
+ 196               	.LVL22:
+ 197               	.LBB36:
+ 198               	.LBB37:
+ 199               		.loc 2 276 0
+ 200 0058 95E8      		ldi r25,lo8(-123)
+ 201 005a 9A95      	1:	dec r25
+ 202 005c 01F4      		brne 1b
+ 203 005e 0000      		nop
+ 204               	.LVL23:
+ 205               	.LBE37:
+ 206               	.LBE36:
+ 207               		.loc 1 45 0
+ 208 0060 81E0      		ldi r24,lo8(1)
+ 209 0062 0E94 0000 		call LcdSendCmd
+ 210               	.LVL24:
+ 211               	.LBB38:
+ 212               	.LBB39:
+ 213               		.loc 2 187 0
+ 214 0066 8FE9      		ldi r24,lo8(3999)
+ 215 0068 9FE0      		ldi r25,hi8(3999)
+ 216 006a 0197      	1:	sbiw r24,1
+ 217 006c 01F4      		brne 1b
+ 218 006e 00C0      		rjmp .
+ 219 0070 0000      		nop
+ 220               	.LVL25:
+ 221               	.LBE39:
+ 222               	.LBE38:
+ 223               	.LBB40:
+ 224               	.LBB41:
+ 225               		.loc 2 276 0
+ 226 0072 95E8      		ldi r25,lo8(-123)
+ 227 0074 9A95      	1:	dec r25
+ 228 0076 01F4      		brne 1b
+GAS LISTING C:\Users\Artem\AppData\Local\Temp\ccYsrGOs.s 			page 5
+
+
+ 229 0078 0000      		nop
+ 230               	.LVL26:
+ 231               	.LBE41:
+ 232               	.LBE40:
+ 233               		.loc 1 49 0
+ 234 007a 8CE0      		ldi r24,lo8(12)
+ 235 007c 0E94 0000 		call LcdSendCmd
+ 236               	.LVL27:
+ 237 0080 0895      		ret
+ 238               		.cfi_endproc
+ 239               	.LFE6:
+ 240               		.size	LcdInit, .-LcdInit
+ 241               		.section	.text.LcdMovCursor,"ax",@progbits
+ 242               	.global	LcdMovCursor
+ 243               		.type	LcdMovCursor, @function
+ 244               	LcdMovCursor:
+ 245               	.LFB9:
+ 246               		.loc 1 72 0
+ 247               		.cfi_startproc
+ 248               	.LVL28:
+ 249               	/* prologue: function */
+ 250               	/* frame size = 0 */
+ 251               	/* stack size = 0 */
+ 252               	.L__stack_usage = 0
+ 253               		.loc 1 74 0
+ 254 0000 8068      		ori r24,lo8(-128)
+ 255               	.LVL29:
+ 256 0002 0E94 0000 		call LcdSendCmd
+ 257               	.LVL30:
+ 258 0006 0895      		ret
+ 259               		.cfi_endproc
+ 260               	.LFE9:
+ 261               		.size	LcdMovCursor, .-LcdMovCursor
+ 262               		.section	.text.LcdSendData,"ax",@progbits
+ 263               	.global	LcdSendData
+ 264               		.type	LcdSendData, @function
+ 265               	LcdSendData:
+ 266               	.LFB12:
+ 267               		.loc 1 90 0
+ 268               		.cfi_startproc
+ 269               	.LVL31:
+ 270 0000 CF93      		push r28
+ 271               	.LCFI1:
+ 272               		.cfi_def_cfa_offset 3
+ 273               		.cfi_offset 28, -2
+ 274               	/* prologue: function */
+ 275               	/* frame size = 0 */
+ 276               	/* stack size = 1 */
+ 277               	.L__stack_usage = 1
+ 278 0002 C82F      		mov r28,r24
+ 279               		.loc 1 91 0
+ 280 0004 929A      		sbi 0x12,2
+ 281               	.LVL32:
+ 282               	.LBB44:
+ 283               	.LBB45:
+ 284               		.loc 1 97 0
+ 285 0006 807F      		andi r24,lo8(-16)
+GAS LISTING C:\Users\Artem\AppData\Local\Temp\ccYsrGOs.s 			page 6
+
+
+ 286               	.LVL33:
+ 287 0008 0E94 0000 		call LcdSendHfByte
+ 288               	.LVL34:
+ 289               		.loc 1 98 0
+ 290 000c 8C2F      		mov r24,r28
+ 291 000e 8295      		swap r24
+ 292 0010 807F      		andi r24,lo8(-16)
+ 293 0012 0E94 0000 		call LcdSendHfByte
+ 294               	.LVL35:
+ 295               	/* epilogue start */
+ 296               	.LBE45:
+ 297               	.LBE44:
+ 298               		.loc 1 93 0
+ 299 0016 CF91      		pop r28
+ 300               	.LVL36:
+ 301 0018 0895      		ret
+ 302               		.cfi_endproc
+ 303               	.LFE12:
+ 304               		.size	LcdSendData, .-LcdSendData
+ 305               		.section	.text.LcdDispBuf,"ax",@progbits
+ 306               	.global	LcdDispBuf
+ 307               		.type	LcdDispBuf, @function
+ 308               	LcdDispBuf:
+ 309               	.LFB7:
+ 310               		.loc 1 53 0
+ 311               		.cfi_startproc
+ 312               	.LVL37:
+ 313 0000 0F93      		push r16
+ 314               	.LCFI2:
+ 315               		.cfi_def_cfa_offset 3
+ 316               		.cfi_offset 16, -2
+ 317 0002 1F93      		push r17
+ 318               	.LCFI3:
+ 319               		.cfi_def_cfa_offset 4
+ 320               		.cfi_offset 17, -3
+ 321 0004 CF93      		push r28
+ 322               	.LCFI4:
+ 323               		.cfi_def_cfa_offset 5
+ 324               		.cfi_offset 28, -4
+ 325 0006 DF93      		push r29
+ 326               	.LCFI5:
+ 327               		.cfi_def_cfa_offset 6
+ 328               		.cfi_offset 29, -5
+ 329               	/* prologue: function */
+ 330               	/* frame size = 0 */
+ 331               	/* stack size = 4 */
+ 332               	.L__stack_usage = 4
+ 333               		.loc 1 54 0
+ 334 0008 4FEF      		ldi r20,lo8(-1)
+ 335 000a 460F      		add r20,r22
+ 336               	.LVL38:
+ 337 000c 6623      		tst r22
+ 338 000e 01F0      		breq .L7
+ 339 0010 EC01      		movw r28,r24
+ 340 0012 042F      		mov r16,r20
+ 341 0014 10E0      		ldi r17,0
+ 342 0016 0F5F      		subi r16,-1
+GAS LISTING C:\Users\Artem\AppData\Local\Temp\ccYsrGOs.s 			page 7
+
+
+ 343 0018 1F4F      		sbci r17,-1
+ 344 001a 080F      		add r16,r24
+ 345 001c 191F      		adc r17,r25
+ 346               	.LVL39:
+ 347               	.L9:
+ 348               	.LBB46:
+ 349               	.LBB47:
+ 350               		.loc 2 276 0
+ 351 001e 85E8      		ldi r24,lo8(-123)
+ 352 0020 8A95      	1:	dec r24
+ 353 0022 01F4      		brne 1b
+ 354 0024 0000      		nop
+ 355               	.LVL40:
+ 356               	.LBE47:
+ 357               	.LBE46:
+ 358               		.loc 1 57 0
+ 359 0026 8991      		ld r24,Y+
+ 360               	.LVL41:
+ 361 0028 0E94 0000 		call LcdSendData
+ 362               	.LVL42:
+ 363               		.loc 1 54 0
+ 364 002c C017      		cp r28,r16
+ 365 002e D107      		cpc r29,r17
+ 366 0030 01F4      		brne .L9
+ 367               	.LVL43:
+ 368               	.L7:
+ 369               	/* epilogue start */
+ 370               		.loc 1 59 0
+ 371 0032 DF91      		pop r29
+ 372 0034 CF91      		pop r28
+ 373 0036 1F91      		pop r17
+ 374 0038 0F91      		pop r16
+ 375 003a 0895      		ret
+ 376               		.cfi_endproc
+ 377               	.LFE7:
+ 378               		.size	LcdDispBuf, .-LcdDispBuf
+ 379               		.section	.text.LcdDispStr,"ax",@progbits
+ 380               	.global	LcdDispStr
+ 381               		.type	LcdDispStr, @function
+ 382               	LcdDispStr:
+ 383               	.LFB8:
+ 384               		.loc 1 62 0
+ 385               		.cfi_startproc
+ 386               	.LVL44:
+ 387 0000 CF93      		push r28
+ 388               	.LCFI6:
+ 389               		.cfi_def_cfa_offset 3
+ 390               		.cfi_offset 28, -2
+ 391 0002 DF93      		push r29
+ 392               	.LCFI7:
+ 393               		.cfi_def_cfa_offset 4
+ 394               		.cfi_offset 29, -3
+ 395               	/* prologue: function */
+ 396               	/* frame size = 0 */
+ 397               	/* stack size = 2 */
+ 398               	.L__stack_usage = 2
+ 399               		.loc 1 63 0
+GAS LISTING C:\Users\Artem\AppData\Local\Temp\ccYsrGOs.s 			page 8
+
+
+ 400 0004 FC01      		movw r30,r24
+ 401 0006 2081      		ld r18,Z
+ 402 0008 2223      		tst r18
+ 403 000a 01F0      		breq .L11
+ 404 000c EC01      		movw r28,r24
+ 405               	.LVL45:
+ 406               	.L13:
+ 407               	.LBB48:
+ 408               	.LBB49:
+ 409               		.loc 2 276 0
+ 410 000e F5E8      		ldi r31,lo8(-123)
+ 411 0010 FA95      	1:	dec r31
+ 412 0012 01F4      		brne 1b
+ 413 0014 0000      		nop
+ 414               	.LVL46:
+ 415               	.LBE49:
+ 416               	.LBE48:
+ 417               		.loc 1 66 0
+ 418 0016 8991      		ld r24,Y+
+ 419               	.LVL47:
+ 420 0018 0E94 0000 		call LcdSendData
+ 421               	.LVL48:
+ 422               		.loc 1 63 0
+ 423 001c 8881      		ld r24,Y
+ 424 001e 8111      		cpse r24,__zero_reg__
+ 425 0020 00C0      		rjmp .L13
+ 426               	.LVL49:
+ 427               	.L11:
+ 428               	/* epilogue start */
+ 429               		.loc 1 69 0
+ 430 0022 DF91      		pop r29
+ 431 0024 CF91      		pop r28
+ 432 0026 0895      		ret
+ 433               		.cfi_endproc
+ 434               	.LFE8:
+ 435               		.size	LcdDispStr, .-LcdDispStr
+ 436               		.text
+ 437               	.Letext0:
+ 438               		.file 3 "c:\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\stdint.h"
+ 439               		.section	.debug_info,"",@progbits
+ 440               	.Ldebug_info0:
+ 441 0000 1806 0000 		.long	0x618
+ 442 0004 0200      		.word	0x2
+ 443 0006 0000 0000 		.long	.Ldebug_abbrev0
+ 444 000a 04        		.byte	0x4
+ 445 000b 01        		.uleb128 0x1
+ 446 000c 0000 0000 		.long	.LASF33
+ 447 0010 0C        		.byte	0xc
+ 448 0011 0000 0000 		.long	.LASF34
+ 449 0015 0000 0000 		.long	.LASF35
+ 450 0019 0000 0000 		.long	.Ldebug_ranges0+0
+ 451 001d 0000 0000 		.long	0
+ 452 0021 0000 0000 		.long	0
+ 453 0025 0000 0000 		.long	.Ldebug_line0
+ 454 0029 02        		.uleb128 0x2
+ 455 002a 01        		.byte	0x1
+ 456 002b 06        		.byte	0x6
+GAS LISTING C:\Users\Artem\AppData\Local\Temp\ccYsrGOs.s 			page 9
+
+
+ 457 002c 0000 0000 		.long	.LASF0
+ 458 0030 03        		.uleb128 0x3
+ 459 0031 0000 0000 		.long	.LASF4
+ 460 0035 03        		.byte	0x3
+ 461 0036 7E        		.byte	0x7e
+ 462 0037 3B00 0000 		.long	0x3b
+ 463 003b 02        		.uleb128 0x2
+ 464 003c 01        		.byte	0x1
+ 465 003d 08        		.byte	0x8
+ 466 003e 0000 0000 		.long	.LASF1
+ 467 0042 04        		.uleb128 0x4
+ 468 0043 02        		.byte	0x2
+ 469 0044 05        		.byte	0x5
+ 470 0045 696E 7400 		.string	"int"
+ 471 0049 02        		.uleb128 0x2
+ 472 004a 02        		.byte	0x2
+ 473 004b 07        		.byte	0x7
+ 474 004c 0000 0000 		.long	.LASF2
+ 475 0050 02        		.uleb128 0x2
+ 476 0051 04        		.byte	0x4
+ 477 0052 05        		.byte	0x5
+ 478 0053 0000 0000 		.long	.LASF3
+ 479 0057 03        		.uleb128 0x3
+ 480 0058 0000 0000 		.long	.LASF5
+ 481 005c 03        		.byte	0x3
+ 482 005d 82        		.byte	0x82
+ 483 005e 6200 0000 		.long	0x62
+ 484 0062 02        		.uleb128 0x2
+ 485 0063 04        		.byte	0x4
+ 486 0064 07        		.byte	0x7
+ 487 0065 0000 0000 		.long	.LASF6
+ 488 0069 02        		.uleb128 0x2
+ 489 006a 08        		.byte	0x8
+ 490 006b 05        		.byte	0x5
+ 491 006c 0000 0000 		.long	.LASF7
+ 492 0070 02        		.uleb128 0x2
+ 493 0071 08        		.byte	0x8
+ 494 0072 07        		.byte	0x7
+ 495 0073 0000 0000 		.long	.LASF8
+ 496 0077 05        		.uleb128 0x5
+ 497 0078 0000 0000 		.long	.LASF12
+ 498 007c 02        		.byte	0x2
+ 499 007d FF        		.byte	0xff
+ 500 007e 01        		.byte	0x1
+ 501 007f 03        		.byte	0x3
+ 502 0080 B300 0000 		.long	0xb3
+ 503 0084 06        		.uleb128 0x6
+ 504 0085 0000 0000 		.long	.LASF14
+ 505 0089 02        		.byte	0x2
+ 506 008a FF        		.byte	0xff
+ 507 008b B300 0000 		.long	0xb3
+ 508 008f 07        		.uleb128 0x7
+ 509 0090 0000 0000 		.long	.LASF9
+ 510 0094 02        		.byte	0x2
+ 511 0095 0101      		.word	0x101
+ 512 0097 B300 0000 		.long	0xb3
+ 513 009b 07        		.uleb128 0x7
+GAS LISTING C:\Users\Artem\AppData\Local\Temp\ccYsrGOs.s 			page 10
+
+
+ 514 009c 0000 0000 		.long	.LASF10
+ 515 00a0 02        		.byte	0x2
+ 516 00a1 0501      		.word	0x105
+ 517 00a3 5700 0000 		.long	0x57
+ 518 00a7 08        		.uleb128 0x8
+ 519 00a8 01        		.byte	0x1
+ 520 00a9 0000 0000 		.long	.LASF16
+ 521 00ad 02        		.byte	0x2
+ 522 00ae 0601      		.word	0x106
+ 523 00b0 01        		.byte	0x1
+ 524 00b1 00        		.byte	0
+ 525 00b2 00        		.byte	0
+ 526 00b3 02        		.uleb128 0x2
+ 527 00b4 04        		.byte	0x4
+ 528 00b5 04        		.byte	0x4
+ 529 00b6 0000 0000 		.long	.LASF11
+ 530 00ba 05        		.uleb128 0x5
+ 531 00bb 0000 0000 		.long	.LASF13
+ 532 00bf 02        		.byte	0x2
+ 533 00c0 A6        		.byte	0xa6
+ 534 00c1 01        		.byte	0x1
+ 535 00c2 03        		.byte	0x3
+ 536 00c3 F300 0000 		.long	0xf3
+ 537 00c7 06        		.uleb128 0x6
+ 538 00c8 0000 0000 		.long	.LASF15
+ 539 00cc 02        		.byte	0x2
+ 540 00cd A6        		.byte	0xa6
+ 541 00ce B300 0000 		.long	0xb3
+ 542 00d2 09        		.uleb128 0x9
+ 543 00d3 0000 0000 		.long	.LASF9
+ 544 00d7 02        		.byte	0x2
+ 545 00d8 A8        		.byte	0xa8
+ 546 00d9 B300 0000 		.long	0xb3
+ 547 00dd 09        		.uleb128 0x9
+ 548 00de 0000 0000 		.long	.LASF10
+ 549 00e2 02        		.byte	0x2
+ 550 00e3 AC        		.byte	0xac
+ 551 00e4 5700 0000 		.long	0x57
+ 552 00e8 0A        		.uleb128 0xa
+ 553 00e9 01        		.byte	0x1
+ 554 00ea 0000 0000 		.long	.LASF16
+ 555 00ee 02        		.byte	0x2
+ 556 00ef AD        		.byte	0xad
+ 557 00f0 01        		.byte	0x1
+ 558 00f1 00        		.byte	0
+ 559 00f2 00        		.byte	0
+ 560 00f3 0B        		.uleb128 0xb
+ 561 00f4 0000 0000 		.long	.LASF17
+ 562 00f8 01        		.byte	0x1
+ 563 00f9 65        		.byte	0x65
+ 564 00fa 01        		.byte	0x1
+ 565 00fb 0000 0000 		.long	.LFB14
+ 566 00ff 0000 0000 		.long	.LFE14
+ 567 0103 03        		.byte	0x3
+ 568 0104 92        		.byte	0x92
+ 569 0105 20        		.uleb128 0x20
+ 570 0106 02        		.sleb128 2
+GAS LISTING C:\Users\Artem\AppData\Local\Temp\ccYsrGOs.s 			page 11
+
+
+ 571 0107 01        		.byte	0x1
+ 572 0108 2B01 0000 		.long	0x12b
+ 573 010c 0C        		.uleb128 0xc
+ 574 010d 0000 0000 		.long	.LASF19
+ 575 0111 01        		.byte	0x1
+ 576 0112 65        		.byte	0x65
+ 577 0113 3000 0000 		.long	0x30
+ 578 0117 0000 0000 		.long	.LLST0
+ 579 011b 0D        		.uleb128 0xd
+ 580 011c 0000 0000 		.long	.LASF27
+ 581 0120 01        		.byte	0x1
+ 582 0121 69        		.byte	0x69
+ 583 0122 3000 0000 		.long	0x30
+ 584 0126 0000 0000 		.long	.LLST1
+ 585 012a 00        		.byte	0
+ 586 012b 0B        		.uleb128 0xb
+ 587 012c 0000 0000 		.long	.LASF18
+ 588 0130 01        		.byte	0x1
+ 589 0131 53        		.byte	0x53
+ 590 0132 01        		.byte	0x1
+ 591 0133 0000 0000 		.long	.LFB11
+ 592 0137 0000 0000 		.long	.LFE11
+ 593 013b 03        		.byte	0x3
+ 594 013c 92        		.byte	0x92
+ 595 013d 20        		.uleb128 0x20
+ 596 013e 02        		.sleb128 2
+ 597 013f 01        		.byte	0x1
+ 598 0140 6501 0000 		.long	0x165
+ 599 0144 0C        		.uleb128 0xc
+ 600 0145 0000 0000 		.long	.LASF20
+ 601 0149 01        		.byte	0x1
+ 602 014a 53        		.byte	0x53
+ 603 014b 3000 0000 		.long	0x30
+ 604 014f 0000 0000 		.long	.LLST2
+ 605 0153 0E        		.uleb128 0xe
+ 606 0154 0000 0000 		.long	.LVL5
+ 607 0158 F300 0000 		.long	0xf3
+ 608 015c 0F        		.uleb128 0xf
+ 609 015d 01        		.byte	0x1
+ 610 015e 68        		.byte	0x68
+ 611 015f 03        		.byte	0x3
+ 612 0160 F3        		.byte	0xf3
+ 613 0161 01        		.uleb128 0x1
+ 614 0162 68        		.byte	0x68
+ 615 0163 00        		.byte	0
+ 616 0164 00        		.byte	0
+ 617 0165 05        		.uleb128 0x5
+ 618 0166 0000 0000 		.long	.LASF21
+ 619 016a 01        		.byte	0x1
+ 620 016b 5F        		.byte	0x5f
+ 621 016c 01        		.byte	0x1
+ 622 016d 01        		.byte	0x1
+ 623 016e 7E01 0000 		.long	0x17e
+ 624 0172 06        		.uleb128 0x6
+ 625 0173 0000 0000 		.long	.LASF22
+ 626 0177 01        		.byte	0x1
+ 627 0178 5F        		.byte	0x5f
+GAS LISTING C:\Users\Artem\AppData\Local\Temp\ccYsrGOs.s 			page 12
+
+
+ 628 0179 3000 0000 		.long	0x30
+ 629 017d 00        		.byte	0
+ 630 017e 10        		.uleb128 0x10
+ 631 017f 01        		.byte	0x1
+ 632 0180 0000 0000 		.long	.LASF23
+ 633 0184 01        		.byte	0x1
+ 634 0185 4D        		.byte	0x4d
+ 635 0186 01        		.byte	0x1
+ 636 0187 0000 0000 		.long	.LFB10
+ 637 018b 0000 0000 		.long	.LFE10
+ 638 018f 0000 0000 		.long	.LLST3
+ 639 0193 01        		.byte	0x1
+ 640 0194 FD01 0000 		.long	0x1fd
+ 641 0198 11        		.uleb128 0x11
+ 642 0199 636D 6400 		.string	"cmd"
+ 643 019d 01        		.byte	0x1
+ 644 019e 4D        		.byte	0x4d
+ 645 019f 3000 0000 		.long	0x30
+ 646 01a3 0000 0000 		.long	.LLST4
+ 647 01a7 12        		.uleb128 0x12
+ 648 01a8 6501 0000 		.long	0x165
+ 649 01ac 0000 0000 		.long	.LBB24
+ 650 01b0 0000 0000 		.long	.LBE24
+ 651 01b4 01        		.byte	0x1
+ 652 01b5 50        		.byte	0x50
+ 653 01b6 13        		.uleb128 0x13
+ 654 01b7 7201 0000 		.long	0x172
+ 655 01bb 0000 0000 		.long	.LLST5
+ 656 01bf 14        		.uleb128 0x14
+ 657 01c0 0000 0000 		.long	.LVL9
+ 658 01c4 F300 0000 		.long	0xf3
+ 659 01c8 D601 0000 		.long	0x1d6
+ 660 01cc 0F        		.uleb128 0xf
+ 661 01cd 01        		.byte	0x1
+ 662 01ce 68        		.byte	0x68
+ 663 01cf 05        		.byte	0x5
+ 664 01d0 8C        		.byte	0x8c
+ 665 01d1 00        		.sleb128 0
+ 666 01d2 09        		.byte	0x9
+ 667 01d3 F0        		.byte	0xf0
+ 668 01d4 1A        		.byte	0x1a
+ 669 01d5 00        		.byte	0
+ 670 01d6 0E        		.uleb128 0xe
+ 671 01d7 0000 0000 		.long	.LVL10
+ 672 01db F300 0000 		.long	0xf3
+ 673 01df 0F        		.uleb128 0xf
+ 674 01e0 01        		.byte	0x1
+ 675 01e1 68        		.byte	0x68
+ 676 01e2 17        		.byte	0x17
+ 677 01e3 8C        		.byte	0x8c
+ 678 01e4 00        		.sleb128 0
+ 679 01e5 34        		.byte	0x34
+ 680 01e6 14        		.byte	0x14
+ 681 01e7 14        		.byte	0x14
+ 682 01e8 24        		.byte	0x24
+ 683 01e9 08        		.byte	0x8
+ 684 01ea FF        		.byte	0xff
+GAS LISTING C:\Users\Artem\AppData\Local\Temp\ccYsrGOs.s 			page 13
+
+
+ 685 01eb 1A        		.byte	0x1a
+ 686 01ec 17        		.byte	0x17
+ 687 01ed 16        		.byte	0x16
+ 688 01ee 08        		.byte	0x8
+ 689 01ef FF        		.byte	0xff
+ 690 01f0 1A        		.byte	0x1a
+ 691 01f1 16        		.byte	0x16
+ 692 01f2 1F        		.byte	0x1f
+ 693 01f3 23        		.byte	0x23
+ 694 01f4 08        		.uleb128 0x8
+ 695 01f5 25        		.byte	0x25
+ 696 01f6 21        		.byte	0x21
+ 697 01f7 09        		.byte	0x9
+ 698 01f8 F0        		.byte	0xf0
+ 699 01f9 1A        		.byte	0x1a
+ 700 01fa 00        		.byte	0
+ 701 01fb 00        		.byte	0
+ 702 01fc 00        		.byte	0
+ 703 01fd 15        		.uleb128 0x15
+ 704 01fe 01        		.byte	0x1
+ 705 01ff 0000 0000 		.long	.LASF24
+ 706 0203 01        		.byte	0x1
+ 707 0204 1C        		.byte	0x1c
+ 708 0205 01        		.byte	0x1
+ 709 0206 0000 0000 		.long	.LFB6
+ 710 020a 0000 0000 		.long	.LFE6
+ 711 020e 03        		.byte	0x3
+ 712 020f 92        		.byte	0x92
+ 713 0210 20        		.uleb128 0x20
+ 714 0211 02        		.sleb128 2
+ 715 0212 01        		.byte	0x1
+ 716 0213 6604 0000 		.long	0x466
+ 717 0217 16        		.uleb128 0x16
+ 718 0218 BA00 0000 		.long	0xba
+ 719 021c 0000 0000 		.long	.LBB26
+ 720 0220 0000 0000 		.long	.LBE26
+ 721 0224 01        		.byte	0x1
+ 722 0225 1F        		.byte	0x1f
+ 723 0226 5002 0000 		.long	0x250
+ 724 022a 13        		.uleb128 0x13
+ 725 022b C700 0000 		.long	0xc7
+ 726 022f 0000 0000 		.long	.LLST6
+ 727 0233 17        		.uleb128 0x17
+ 728 0234 0000 0000 		.long	.LBB27
+ 729 0238 0000 0000 		.long	.LBE27
+ 730 023c 18        		.uleb128 0x18
+ 731 023d D200 0000 		.long	0xd2
+ 732 0241 0000 0000 		.long	.LLST7
+ 733 0245 18        		.uleb128 0x18
+ 734 0246 DD00 0000 		.long	0xdd
+ 735 024a 0000 0000 		.long	.LLST8
+ 736 024e 00        		.byte	0
+ 737 024f 00        		.byte	0
+ 738 0250 16        		.uleb128 0x16
+ 739 0251 BA00 0000 		.long	0xba
+ 740 0255 0000 0000 		.long	.LBB28
+ 741 0259 0000 0000 		.long	.LBE28
+GAS LISTING C:\Users\Artem\AppData\Local\Temp\ccYsrGOs.s 			page 14
+
+
+ 742 025d 01        		.byte	0x1
+ 743 025e 21        		.byte	0x21
+ 744 025f 8902 0000 		.long	0x289
+ 745 0263 13        		.uleb128 0x13
+ 746 0264 C700 0000 		.long	0xc7
+ 747 0268 0000 0000 		.long	.LLST9
+ 748 026c 17        		.uleb128 0x17
+ 749 026d 0000 0000 		.long	.LBB29
+ 750 0271 0000 0000 		.long	.LBE29
+ 751 0275 18        		.uleb128 0x18
+ 752 0276 D200 0000 		.long	0xd2
+ 753 027a 0000 0000 		.long	.LLST10
+ 754 027e 18        		.uleb128 0x18
+ 755 027f DD00 0000 		.long	0xdd
+ 756 0283 0000 0000 		.long	.LLST11
+ 757 0287 00        		.byte	0
+ 758 0288 00        		.byte	0
+ 759 0289 16        		.uleb128 0x16
+ 760 028a 7700 0000 		.long	0x77
+ 761 028e 0000 0000 		.long	.LBB30
+ 762 0292 0000 0000 		.long	.LBE30
+ 763 0296 01        		.byte	0x1
+ 764 0297 23        		.byte	0x23
+ 765 0298 C202 0000 		.long	0x2c2
+ 766 029c 13        		.uleb128 0x13
+ 767 029d 8400 0000 		.long	0x84
+ 768 02a1 0000 0000 		.long	.LLST12
+ 769 02a5 17        		.uleb128 0x17
+ 770 02a6 0000 0000 		.long	.LBB31
+ 771 02aa 0000 0000 		.long	.LBE31
+ 772 02ae 18        		.uleb128 0x18
+ 773 02af 8F00 0000 		.long	0x8f
+ 774 02b3 0000 0000 		.long	.LLST13
+ 775 02b7 18        		.uleb128 0x18
+ 776 02b8 9B00 0000 		.long	0x9b
+ 777 02bc 0000 0000 		.long	.LLST14
+ 778 02c0 00        		.byte	0
+ 779 02c1 00        		.byte	0
+ 780 02c2 16        		.uleb128 0x16
+ 781 02c3 7700 0000 		.long	0x77
+ 782 02c7 0000 0000 		.long	.LBB32
+ 783 02cb 0000 0000 		.long	.LBE32
+ 784 02cf 01        		.byte	0x1
+ 785 02d0 26        		.byte	0x26
+ 786 02d1 FB02 0000 		.long	0x2fb
+ 787 02d5 13        		.uleb128 0x13
+ 788 02d6 8400 0000 		.long	0x84
+ 789 02da 0000 0000 		.long	.LLST15
+ 790 02de 17        		.uleb128 0x17
+ 791 02df 0000 0000 		.long	.LBB33
+ 792 02e3 0000 0000 		.long	.LBE33
+ 793 02e7 18        		.uleb128 0x18
+ 794 02e8 8F00 0000 		.long	0x8f
+ 795 02ec 0000 0000 		.long	.LLST16
+ 796 02f0 18        		.uleb128 0x18
+ 797 02f1 9B00 0000 		.long	0x9b
+ 798 02f5 0000 0000 		.long	.LLST17
+GAS LISTING C:\Users\Artem\AppData\Local\Temp\ccYsrGOs.s 			page 15
+
+
+ 799 02f9 00        		.byte	0
+ 800 02fa 00        		.byte	0
+ 801 02fb 16        		.uleb128 0x16
+ 802 02fc 7700 0000 		.long	0x77
+ 803 0300 0000 0000 		.long	.LBB34
+ 804 0304 0000 0000 		.long	.LBE34
+ 805 0308 01        		.byte	0x1
+ 806 0309 29        		.byte	0x29
+ 807 030a 3403 0000 		.long	0x334
+ 808 030e 13        		.uleb128 0x13
+ 809 030f 8400 0000 		.long	0x84
+ 810 0313 0000 0000 		.long	.LLST18
+ 811 0317 17        		.uleb128 0x17
+ 812 0318 0000 0000 		.long	.LBB35
+ 813 031c 0000 0000 		.long	.LBE35
+ 814 0320 18        		.uleb128 0x18
+ 815 0321 8F00 0000 		.long	0x8f
+ 816 0325 0000 0000 		.long	.LLST19
+ 817 0329 18        		.uleb128 0x18
+ 818 032a 9B00 0000 		.long	0x9b
+ 819 032e 0000 0000 		.long	.LLST20
+ 820 0332 00        		.byte	0
+ 821 0333 00        		.byte	0
+ 822 0334 16        		.uleb128 0x16
+ 823 0335 7700 0000 		.long	0x77
+ 824 0339 0000 0000 		.long	.LBB36
+ 825 033d 0000 0000 		.long	.LBE36
+ 826 0341 01        		.byte	0x1
+ 827 0342 2C        		.byte	0x2c
+ 828 0343 6D03 0000 		.long	0x36d
+ 829 0347 13        		.uleb128 0x13
+ 830 0348 8400 0000 		.long	0x84
+ 831 034c 0000 0000 		.long	.LLST21
+ 832 0350 17        		.uleb128 0x17
+ 833 0351 0000 0000 		.long	.LBB37
+ 834 0355 0000 0000 		.long	.LBE37
+ 835 0359 18        		.uleb128 0x18
+ 836 035a 8F00 0000 		.long	0x8f
+ 837 035e 0000 0000 		.long	.LLST22
+ 838 0362 18        		.uleb128 0x18
+ 839 0363 9B00 0000 		.long	0x9b
+ 840 0367 0000 0000 		.long	.LLST23
+ 841 036b 00        		.byte	0
+ 842 036c 00        		.byte	0
+ 843 036d 16        		.uleb128 0x16
+ 844 036e BA00 0000 		.long	0xba
+ 845 0372 0000 0000 		.long	.LBB38
+ 846 0376 0000 0000 		.long	.LBE38
+ 847 037a 01        		.byte	0x1
+ 848 037b 2E        		.byte	0x2e
+ 849 037c A603 0000 		.long	0x3a6
+ 850 0380 13        		.uleb128 0x13
+ 851 0381 C700 0000 		.long	0xc7
+ 852 0385 0000 0000 		.long	.LLST24
+ 853 0389 17        		.uleb128 0x17
+ 854 038a 0000 0000 		.long	.LBB39
+ 855 038e 0000 0000 		.long	.LBE39
+GAS LISTING C:\Users\Artem\AppData\Local\Temp\ccYsrGOs.s 			page 16
+
+
+ 856 0392 18        		.uleb128 0x18
+ 857 0393 D200 0000 		.long	0xd2
+ 858 0397 0000 0000 		.long	.LLST25
+ 859 039b 18        		.uleb128 0x18
+ 860 039c DD00 0000 		.long	0xdd
+ 861 03a0 0000 0000 		.long	.LLST26
+ 862 03a4 00        		.byte	0
+ 863 03a5 00        		.byte	0
+ 864 03a6 16        		.uleb128 0x16
+ 865 03a7 7700 0000 		.long	0x77
+ 866 03ab 0000 0000 		.long	.LBB40
+ 867 03af 0000 0000 		.long	.LBE40
+ 868 03b3 01        		.byte	0x1
+ 869 03b4 30        		.byte	0x30
+ 870 03b5 DF03 0000 		.long	0x3df
+ 871 03b9 13        		.uleb128 0x13
+ 872 03ba 8400 0000 		.long	0x84
+ 873 03be 0000 0000 		.long	.LLST27
+ 874 03c2 17        		.uleb128 0x17
+ 875 03c3 0000 0000 		.long	.LBB41
+ 876 03c7 0000 0000 		.long	.LBE41
+ 877 03cb 18        		.uleb128 0x18
+ 878 03cc 8F00 0000 		.long	0x8f
+ 879 03d0 0000 0000 		.long	.LLST28
+ 880 03d4 18        		.uleb128 0x18
+ 881 03d5 9B00 0000 		.long	0x9b
+ 882 03d9 0000 0000 		.long	.LLST29
+ 883 03dd 00        		.byte	0
+ 884 03de 00        		.byte	0
+ 885 03df 14        		.uleb128 0x14
+ 886 03e0 0000 0000 		.long	.LVL14
+ 887 03e4 2B01 0000 		.long	0x12b
+ 888 03e8 F303 0000 		.long	0x3f3
+ 889 03ec 0F        		.uleb128 0xf
+ 890 03ed 01        		.byte	0x1
+ 891 03ee 68        		.byte	0x68
+ 892 03ef 02        		.byte	0x2
+ 893 03f0 08        		.byte	0x8
+ 894 03f1 30        		.byte	0x30
+ 895 03f2 00        		.byte	0
+ 896 03f3 14        		.uleb128 0x14
+ 897 03f4 0000 0000 		.long	.LVL16
+ 898 03f8 2B01 0000 		.long	0x12b
+ 899 03fc 0704 0000 		.long	0x407
+ 900 0400 0F        		.uleb128 0xf
+ 901 0401 01        		.byte	0x1
+ 902 0402 68        		.byte	0x68
+ 903 0403 02        		.byte	0x2
+ 904 0404 08        		.byte	0x8
+ 905 0405 30        		.byte	0x30
+ 906 0406 00        		.byte	0
+ 907 0407 14        		.uleb128 0x14
+ 908 0408 0000 0000 		.long	.LVL18
+ 909 040c 2B01 0000 		.long	0x12b
+ 910 0410 1B04 0000 		.long	0x41b
+ 911 0414 0F        		.uleb128 0xf
+ 912 0415 01        		.byte	0x1
+GAS LISTING C:\Users\Artem\AppData\Local\Temp\ccYsrGOs.s 			page 17
+
+
+ 913 0416 68        		.byte	0x68
+ 914 0417 02        		.byte	0x2
+ 915 0418 08        		.byte	0x8
+ 916 0419 30        		.byte	0x30
+ 917 041a 00        		.byte	0
+ 918 041b 14        		.uleb128 0x14
+ 919 041c 0000 0000 		.long	.LVL20
+ 920 0420 2B01 0000 		.long	0x12b
+ 921 0424 2F04 0000 		.long	0x42f
+ 922 0428 0F        		.uleb128 0xf
+ 923 0429 01        		.byte	0x1
+ 924 042a 68        		.byte	0x68
+ 925 042b 02        		.byte	0x2
+ 926 042c 08        		.byte	0x8
+ 927 042d 20        		.byte	0x20
+ 928 042e 00        		.byte	0
+ 929 042f 14        		.uleb128 0x14
+ 930 0430 0000 0000 		.long	.LVL22
+ 931 0434 7E01 0000 		.long	0x17e
+ 932 0438 4304 0000 		.long	0x443
+ 933 043c 0F        		.uleb128 0xf
+ 934 043d 01        		.byte	0x1
+ 935 043e 68        		.byte	0x68
+ 936 043f 02        		.byte	0x2
+ 937 0440 08        		.byte	0x8
+ 938 0441 20        		.byte	0x20
+ 939 0442 00        		.byte	0
+ 940 0443 14        		.uleb128 0x14
+ 941 0444 0000 0000 		.long	.LVL24
+ 942 0448 7E01 0000 		.long	0x17e
+ 943 044c 5604 0000 		.long	0x456
+ 944 0450 0F        		.uleb128 0xf
+ 945 0451 01        		.byte	0x1
+ 946 0452 68        		.byte	0x68
+ 947 0453 01        		.byte	0x1
+ 948 0454 31        		.byte	0x31
+ 949 0455 00        		.byte	0
+ 950 0456 0E        		.uleb128 0xe
+ 951 0457 0000 0000 		.long	.LVL27
+ 952 045b 7E01 0000 		.long	0x17e
+ 953 045f 0F        		.uleb128 0xf
+ 954 0460 01        		.byte	0x1
+ 955 0461 68        		.byte	0x68
+ 956 0462 01        		.byte	0x1
+ 957 0463 3C        		.byte	0x3c
+ 958 0464 00        		.byte	0
+ 959 0465 00        		.byte	0
+ 960 0466 15        		.uleb128 0x15
+ 961 0467 01        		.byte	0x1
+ 962 0468 0000 0000 		.long	.LASF25
+ 963 046c 01        		.byte	0x1
+ 964 046d 47        		.byte	0x47
+ 965 046e 01        		.byte	0x1
+ 966 046f 0000 0000 		.long	.LFB9
+ 967 0473 0000 0000 		.long	.LFE9
+ 968 0477 03        		.byte	0x3
+ 969 0478 92        		.byte	0x92
+GAS LISTING C:\Users\Artem\AppData\Local\Temp\ccYsrGOs.s 			page 18
+
+
+ 970 0479 20        		.uleb128 0x20
+ 971 047a 02        		.sleb128 2
+ 972 047b 01        		.byte	0x1
+ 973 047c B304 0000 		.long	0x4b3
+ 974 0480 0C        		.uleb128 0xc
+ 975 0481 0000 0000 		.long	.LASF26
+ 976 0485 01        		.byte	0x1
+ 977 0486 47        		.byte	0x47
+ 978 0487 3000 0000 		.long	0x30
+ 979 048b 0000 0000 		.long	.LLST30
+ 980 048f 0D        		.uleb128 0xd
+ 981 0490 0000 0000 		.long	.LASF27
+ 982 0494 01        		.byte	0x1
+ 983 0495 49        		.byte	0x49
+ 984 0496 3000 0000 		.long	0x30
+ 985 049a 0000 0000 		.long	.LLST31
+ 986 049e 0E        		.uleb128 0xe
+ 987 049f 0000 0000 		.long	.LVL30
+ 988 04a3 7E01 0000 		.long	0x17e
+ 989 04a7 0F        		.uleb128 0xf
+ 990 04a8 01        		.byte	0x1
+ 991 04a9 68        		.byte	0x68
+ 992 04aa 06        		.byte	0x6
+ 993 04ab F3        		.byte	0xf3
+ 994 04ac 01        		.uleb128 0x1
+ 995 04ad 68        		.byte	0x68
+ 996 04ae 09        		.byte	0x9
+ 997 04af 80        		.byte	0x80
+ 998 04b0 21        		.byte	0x21
+ 999 04b1 00        		.byte	0
+ 1000 04b2 00        		.byte	0
+ 1001 04b3 10        		.uleb128 0x10
+ 1002 04b4 01        		.byte	0x1
+ 1003 04b5 0000 0000 		.long	.LASF28
+ 1004 04b9 01        		.byte	0x1
+ 1005 04ba 59        		.byte	0x59
+ 1006 04bb 01        		.byte	0x1
+ 1007 04bc 0000 0000 		.long	.LFB12
+ 1008 04c0 0000 0000 		.long	.LFE12
+ 1009 04c4 0000 0000 		.long	.LLST32
+ 1010 04c8 01        		.byte	0x1
+ 1011 04c9 3205 0000 		.long	0x532
+ 1012 04cd 0C        		.uleb128 0xc
+ 1013 04ce 0000 0000 		.long	.LASF29
+ 1014 04d2 01        		.byte	0x1
+ 1015 04d3 59        		.byte	0x59
+ 1016 04d4 3000 0000 		.long	0x30
+ 1017 04d8 0000 0000 		.long	.LLST33
+ 1018 04dc 12        		.uleb128 0x12
+ 1019 04dd 6501 0000 		.long	0x165
+ 1020 04e1 0000 0000 		.long	.LBB44
+ 1021 04e5 0000 0000 		.long	.LBE44
+ 1022 04e9 01        		.byte	0x1
+ 1023 04ea 5C        		.byte	0x5c
+ 1024 04eb 13        		.uleb128 0x13
+ 1025 04ec 7201 0000 		.long	0x172
+ 1026 04f0 0000 0000 		.long	.LLST34
+GAS LISTING C:\Users\Artem\AppData\Local\Temp\ccYsrGOs.s 			page 19
+
+
+ 1027 04f4 14        		.uleb128 0x14
+ 1028 04f5 0000 0000 		.long	.LVL34
+ 1029 04f9 F300 0000 		.long	0xf3
+ 1030 04fd 0B05 0000 		.long	0x50b
+ 1031 0501 0F        		.uleb128 0xf
+ 1032 0502 01        		.byte	0x1
+ 1033 0503 68        		.byte	0x68
+ 1034 0504 05        		.byte	0x5
+ 1035 0505 8C        		.byte	0x8c
+ 1036 0506 00        		.sleb128 0
+ 1037 0507 09        		.byte	0x9
+ 1038 0508 F0        		.byte	0xf0
+ 1039 0509 1A        		.byte	0x1a
+ 1040 050a 00        		.byte	0
+ 1041 050b 0E        		.uleb128 0xe
+ 1042 050c 0000 0000 		.long	.LVL35
+ 1043 0510 F300 0000 		.long	0xf3
+ 1044 0514 0F        		.uleb128 0xf
+ 1045 0515 01        		.byte	0x1
+ 1046 0516 68        		.byte	0x68
+ 1047 0517 17        		.byte	0x17
+ 1048 0518 8C        		.byte	0x8c
+ 1049 0519 00        		.sleb128 0
+ 1050 051a 34        		.byte	0x34
+ 1051 051b 14        		.byte	0x14
+ 1052 051c 14        		.byte	0x14
+ 1053 051d 24        		.byte	0x24
+ 1054 051e 08        		.byte	0x8
+ 1055 051f FF        		.byte	0xff
+ 1056 0520 1A        		.byte	0x1a
+ 1057 0521 17        		.byte	0x17
+ 1058 0522 16        		.byte	0x16
+ 1059 0523 08        		.byte	0x8
+ 1060 0524 FF        		.byte	0xff
+ 1061 0525 1A        		.byte	0x1a
+ 1062 0526 16        		.byte	0x16
+ 1063 0527 1F        		.byte	0x1f
+ 1064 0528 23        		.byte	0x23
+ 1065 0529 08        		.uleb128 0x8
+ 1066 052a 25        		.byte	0x25
+ 1067 052b 21        		.byte	0x21
+ 1068 052c 09        		.byte	0x9
+ 1069 052d F0        		.byte	0xf0
+ 1070 052e 1A        		.byte	0x1a
+ 1071 052f 00        		.byte	0
+ 1072 0530 00        		.byte	0
+ 1073 0531 00        		.byte	0
+ 1074 0532 10        		.uleb128 0x10
+ 1075 0533 01        		.byte	0x1
+ 1076 0534 0000 0000 		.long	.LASF30
+ 1077 0538 01        		.byte	0x1
+ 1078 0539 34        		.byte	0x34
+ 1079 053a 01        		.byte	0x1
+ 1080 053b 0000 0000 		.long	.LFB7
+ 1081 053f 0000 0000 		.long	.LFE7
+ 1082 0543 0000 0000 		.long	.LLST35
+ 1083 0547 01        		.byte	0x1
+GAS LISTING C:\Users\Artem\AppData\Local\Temp\ccYsrGOs.s 			page 20
+
+
+ 1084 0548 AD05 0000 		.long	0x5ad
+ 1085 054c 0C        		.uleb128 0xc
+ 1086 054d 0000 0000 		.long	.LASF31
+ 1087 0551 01        		.byte	0x1
+ 1088 0552 34        		.byte	0x34
+ 1089 0553 AD05 0000 		.long	0x5ad
+ 1090 0557 0000 0000 		.long	.LLST36
+ 1091 055b 0C        		.uleb128 0xc
+ 1092 055c 0000 0000 		.long	.LASF32
+ 1093 0560 01        		.byte	0x1
+ 1094 0561 34        		.byte	0x34
+ 1095 0562 3000 0000 		.long	0x30
+ 1096 0566 0000 0000 		.long	.LLST37
+ 1097 056a 16        		.uleb128 0x16
+ 1098 056b 7700 0000 		.long	0x77
+ 1099 056f 0000 0000 		.long	.LBB46
+ 1100 0573 0000 0000 		.long	.LBE46
+ 1101 0577 01        		.byte	0x1
+ 1102 0578 38        		.byte	0x38
+ 1103 0579 A305 0000 		.long	0x5a3
+ 1104 057d 13        		.uleb128 0x13
+ 1105 057e 8400 0000 		.long	0x84
+ 1106 0582 0000 0000 		.long	.LLST38
+ 1107 0586 17        		.uleb128 0x17
+ 1108 0587 0000 0000 		.long	.LBB47
+ 1109 058b 0000 0000 		.long	.LBE47
+ 1110 058f 18        		.uleb128 0x18
+ 1111 0590 8F00 0000 		.long	0x8f
+ 1112 0594 0000 0000 		.long	.LLST39
+ 1113 0598 18        		.uleb128 0x18
+ 1114 0599 9B00 0000 		.long	0x9b
+ 1115 059d 0000 0000 		.long	.LLST40
+ 1116 05a1 00        		.byte	0
+ 1117 05a2 00        		.byte	0
+ 1118 05a3 19        		.uleb128 0x19
+ 1119 05a4 0000 0000 		.long	.LVL42
+ 1120 05a8 B304 0000 		.long	0x4b3
+ 1121 05ac 00        		.byte	0
+ 1122 05ad 1A        		.uleb128 0x1a
+ 1123 05ae 02        		.byte	0x2
+ 1124 05af 3000 0000 		.long	0x30
+ 1125 05b3 1B        		.uleb128 0x1b
+ 1126 05b4 01        		.byte	0x1
+ 1127 05b5 0000 0000 		.long	.LASF36
+ 1128 05b9 01        		.byte	0x1
+ 1129 05ba 3D        		.byte	0x3d
+ 1130 05bb 01        		.byte	0x1
+ 1131 05bc 0000 0000 		.long	.LFB8
+ 1132 05c0 0000 0000 		.long	.LFE8
+ 1133 05c4 0000 0000 		.long	.LLST41
+ 1134 05c8 01        		.byte	0x1
+ 1135 05c9 11        		.uleb128 0x11
+ 1136 05ca 7374 7200 		.string	"str"
+ 1137 05ce 01        		.byte	0x1
+ 1138 05cf 3D        		.byte	0x3d
+ 1139 05d0 AD05 0000 		.long	0x5ad
+ 1140 05d4 0000 0000 		.long	.LLST42
+GAS LISTING C:\Users\Artem\AppData\Local\Temp\ccYsrGOs.s 			page 21
+
+
+ 1141 05d8 16        		.uleb128 0x16
+ 1142 05d9 7700 0000 		.long	0x77
+ 1143 05dd 0000 0000 		.long	.LBB48
+ 1144 05e1 0000 0000 		.long	.LBE48
+ 1145 05e5 01        		.byte	0x1
+ 1146 05e6 41        		.byte	0x41
+ 1147 05e7 1106 0000 		.long	0x611
+ 1148 05eb 13        		.uleb128 0x13
+ 1149 05ec 8400 0000 		.long	0x84
+ 1150 05f0 0000 0000 		.long	.LLST43
+ 1151 05f4 17        		.uleb128 0x17
+ 1152 05f5 0000 0000 		.long	.LBB49
+ 1153 05f9 0000 0000 		.long	.LBE49
+ 1154 05fd 18        		.uleb128 0x18
+ 1155 05fe 8F00 0000 		.long	0x8f
+ 1156 0602 0000 0000 		.long	.LLST44
+ 1157 0606 18        		.uleb128 0x18
+ 1158 0607 9B00 0000 		.long	0x9b
+ 1159 060b 0000 0000 		.long	.LLST45
+ 1160 060f 00        		.byte	0
+ 1161 0610 00        		.byte	0
+ 1162 0611 19        		.uleb128 0x19
+ 1163 0612 0000 0000 		.long	.LVL48
+ 1164 0616 B304 0000 		.long	0x4b3
+ 1165 061a 00        		.byte	0
+ 1166 061b 00        		.byte	0
+ 1167               		.section	.debug_abbrev,"",@progbits
+ 1168               	.Ldebug_abbrev0:
+ 1169 0000 01        		.uleb128 0x1
+ 1170 0001 11        		.uleb128 0x11
+ 1171 0002 01        		.byte	0x1
+ 1172 0003 25        		.uleb128 0x25
+ 1173 0004 0E        		.uleb128 0xe
+ 1174 0005 13        		.uleb128 0x13
+ 1175 0006 0B        		.uleb128 0xb
+ 1176 0007 03        		.uleb128 0x3
+ 1177 0008 0E        		.uleb128 0xe
+ 1178 0009 1B        		.uleb128 0x1b
+ 1179 000a 0E        		.uleb128 0xe
+ 1180 000b 55        		.uleb128 0x55
+ 1181 000c 06        		.uleb128 0x6
+ 1182 000d 11        		.uleb128 0x11
+ 1183 000e 01        		.uleb128 0x1
+ 1184 000f 52        		.uleb128 0x52
+ 1185 0010 01        		.uleb128 0x1
+ 1186 0011 10        		.uleb128 0x10
+ 1187 0012 06        		.uleb128 0x6
+ 1188 0013 00        		.byte	0
+ 1189 0014 00        		.byte	0
+ 1190 0015 02        		.uleb128 0x2
+ 1191 0016 24        		.uleb128 0x24
+ 1192 0017 00        		.byte	0
+ 1193 0018 0B        		.uleb128 0xb
+ 1194 0019 0B        		.uleb128 0xb
+ 1195 001a 3E        		.uleb128 0x3e
+ 1196 001b 0B        		.uleb128 0xb
+ 1197 001c 03        		.uleb128 0x3
+GAS LISTING C:\Users\Artem\AppData\Local\Temp\ccYsrGOs.s 			page 22
+
+
+ 1198 001d 0E        		.uleb128 0xe
+ 1199 001e 00        		.byte	0
+ 1200 001f 00        		.byte	0
+ 1201 0020 03        		.uleb128 0x3
+ 1202 0021 16        		.uleb128 0x16
+ 1203 0022 00        		.byte	0
+ 1204 0023 03        		.uleb128 0x3
+ 1205 0024 0E        		.uleb128 0xe
+ 1206 0025 3A        		.uleb128 0x3a
+ 1207 0026 0B        		.uleb128 0xb
+ 1208 0027 3B        		.uleb128 0x3b
+ 1209 0028 0B        		.uleb128 0xb
+ 1210 0029 49        		.uleb128 0x49
+ 1211 002a 13        		.uleb128 0x13
+ 1212 002b 00        		.byte	0
+ 1213 002c 00        		.byte	0
+ 1214 002d 04        		.uleb128 0x4
+ 1215 002e 24        		.uleb128 0x24
+ 1216 002f 00        		.byte	0
+ 1217 0030 0B        		.uleb128 0xb
+ 1218 0031 0B        		.uleb128 0xb
+ 1219 0032 3E        		.uleb128 0x3e
+ 1220 0033 0B        		.uleb128 0xb
+ 1221 0034 03        		.uleb128 0x3
+ 1222 0035 08        		.uleb128 0x8
+ 1223 0036 00        		.byte	0
+ 1224 0037 00        		.byte	0
+ 1225 0038 05        		.uleb128 0x5
+ 1226 0039 2E        		.uleb128 0x2e
+ 1227 003a 01        		.byte	0x1
+ 1228 003b 03        		.uleb128 0x3
+ 1229 003c 0E        		.uleb128 0xe
+ 1230 003d 3A        		.uleb128 0x3a
+ 1231 003e 0B        		.uleb128 0xb
+ 1232 003f 3B        		.uleb128 0x3b
+ 1233 0040 0B        		.uleb128 0xb
+ 1234 0041 27        		.uleb128 0x27
+ 1235 0042 0C        		.uleb128 0xc
+ 1236 0043 20        		.uleb128 0x20
+ 1237 0044 0B        		.uleb128 0xb
+ 1238 0045 01        		.uleb128 0x1
+ 1239 0046 13        		.uleb128 0x13
+ 1240 0047 00        		.byte	0
+ 1241 0048 00        		.byte	0
+ 1242 0049 06        		.uleb128 0x6
+ 1243 004a 05        		.uleb128 0x5
+ 1244 004b 00        		.byte	0
+ 1245 004c 03        		.uleb128 0x3
+ 1246 004d 0E        		.uleb128 0xe
+ 1247 004e 3A        		.uleb128 0x3a
+ 1248 004f 0B        		.uleb128 0xb
+ 1249 0050 3B        		.uleb128 0x3b
+ 1250 0051 0B        		.uleb128 0xb
+ 1251 0052 49        		.uleb128 0x49
+ 1252 0053 13        		.uleb128 0x13
+ 1253 0054 00        		.byte	0
+ 1254 0055 00        		.byte	0
+GAS LISTING C:\Users\Artem\AppData\Local\Temp\ccYsrGOs.s 			page 23
+
+
+ 1255 0056 07        		.uleb128 0x7
+ 1256 0057 34        		.uleb128 0x34
+ 1257 0058 00        		.byte	0
+ 1258 0059 03        		.uleb128 0x3
+ 1259 005a 0E        		.uleb128 0xe
+ 1260 005b 3A        		.uleb128 0x3a
+ 1261 005c 0B        		.uleb128 0xb
+ 1262 005d 3B        		.uleb128 0x3b
+ 1263 005e 05        		.uleb128 0x5
+ 1264 005f 49        		.uleb128 0x49
+ 1265 0060 13        		.uleb128 0x13
+ 1266 0061 00        		.byte	0
+ 1267 0062 00        		.byte	0
+ 1268 0063 08        		.uleb128 0x8
+ 1269 0064 2E        		.uleb128 0x2e
+ 1270 0065 00        		.byte	0
+ 1271 0066 3F        		.uleb128 0x3f
+ 1272 0067 0C        		.uleb128 0xc
+ 1273 0068 03        		.uleb128 0x3
+ 1274 0069 0E        		.uleb128 0xe
+ 1275 006a 3A        		.uleb128 0x3a
+ 1276 006b 0B        		.uleb128 0xb
+ 1277 006c 3B        		.uleb128 0x3b
+ 1278 006d 05        		.uleb128 0x5
+ 1279 006e 27        		.uleb128 0x27
+ 1280 006f 0C        		.uleb128 0xc
+ 1281 0070 20        		.uleb128 0x20
+ 1282 0071 0B        		.uleb128 0xb
+ 1283 0072 00        		.byte	0
+ 1284 0073 00        		.byte	0
+ 1285 0074 09        		.uleb128 0x9
+ 1286 0075 34        		.uleb128 0x34
+ 1287 0076 00        		.byte	0
+ 1288 0077 03        		.uleb128 0x3
+ 1289 0078 0E        		.uleb128 0xe
+ 1290 0079 3A        		.uleb128 0x3a
+ 1291 007a 0B        		.uleb128 0xb
+ 1292 007b 3B        		.uleb128 0x3b
+ 1293 007c 0B        		.uleb128 0xb
+ 1294 007d 49        		.uleb128 0x49
+ 1295 007e 13        		.uleb128 0x13
+ 1296 007f 00        		.byte	0
+ 1297 0080 00        		.byte	0
+ 1298 0081 0A        		.uleb128 0xa
+ 1299 0082 2E        		.uleb128 0x2e
+ 1300 0083 00        		.byte	0
+ 1301 0084 3F        		.uleb128 0x3f
+ 1302 0085 0C        		.uleb128 0xc
+ 1303 0086 03        		.uleb128 0x3
+ 1304 0087 0E        		.uleb128 0xe
+ 1305 0088 3A        		.uleb128 0x3a
+ 1306 0089 0B        		.uleb128 0xb
+ 1307 008a 3B        		.uleb128 0x3b
+ 1308 008b 0B        		.uleb128 0xb
+ 1309 008c 27        		.uleb128 0x27
+ 1310 008d 0C        		.uleb128 0xc
+ 1311 008e 20        		.uleb128 0x20
+GAS LISTING C:\Users\Artem\AppData\Local\Temp\ccYsrGOs.s 			page 24
+
+
+ 1312 008f 0B        		.uleb128 0xb
+ 1313 0090 00        		.byte	0
+ 1314 0091 00        		.byte	0
+ 1315 0092 0B        		.uleb128 0xb
+ 1316 0093 2E        		.uleb128 0x2e
+ 1317 0094 01        		.byte	0x1
+ 1318 0095 03        		.uleb128 0x3
+ 1319 0096 0E        		.uleb128 0xe
+ 1320 0097 3A        		.uleb128 0x3a
+ 1321 0098 0B        		.uleb128 0xb
+ 1322 0099 3B        		.uleb128 0x3b
+ 1323 009a 0B        		.uleb128 0xb
+ 1324 009b 27        		.uleb128 0x27
+ 1325 009c 0C        		.uleb128 0xc
+ 1326 009d 11        		.uleb128 0x11
+ 1327 009e 01        		.uleb128 0x1
+ 1328 009f 12        		.uleb128 0x12
+ 1329 00a0 01        		.uleb128 0x1
+ 1330 00a1 40        		.uleb128 0x40
+ 1331 00a2 0A        		.uleb128 0xa
+ 1332 00a3 9742      		.uleb128 0x2117
+ 1333 00a5 0C        		.uleb128 0xc
+ 1334 00a6 01        		.uleb128 0x1
+ 1335 00a7 13        		.uleb128 0x13
+ 1336 00a8 00        		.byte	0
+ 1337 00a9 00        		.byte	0
+ 1338 00aa 0C        		.uleb128 0xc
+ 1339 00ab 05        		.uleb128 0x5
+ 1340 00ac 00        		.byte	0
+ 1341 00ad 03        		.uleb128 0x3
+ 1342 00ae 0E        		.uleb128 0xe
+ 1343 00af 3A        		.uleb128 0x3a
+ 1344 00b0 0B        		.uleb128 0xb
+ 1345 00b1 3B        		.uleb128 0x3b
+ 1346 00b2 0B        		.uleb128 0xb
+ 1347 00b3 49        		.uleb128 0x49
+ 1348 00b4 13        		.uleb128 0x13
+ 1349 00b5 02        		.uleb128 0x2
+ 1350 00b6 06        		.uleb128 0x6
+ 1351 00b7 00        		.byte	0
+ 1352 00b8 00        		.byte	0
+ 1353 00b9 0D        		.uleb128 0xd
+ 1354 00ba 34        		.uleb128 0x34
+ 1355 00bb 00        		.byte	0
+ 1356 00bc 03        		.uleb128 0x3
+ 1357 00bd 0E        		.uleb128 0xe
+ 1358 00be 3A        		.uleb128 0x3a
+ 1359 00bf 0B        		.uleb128 0xb
+ 1360 00c0 3B        		.uleb128 0x3b
+ 1361 00c1 0B        		.uleb128 0xb
+ 1362 00c2 49        		.uleb128 0x49
+ 1363 00c3 13        		.uleb128 0x13
+ 1364 00c4 02        		.uleb128 0x2
+ 1365 00c5 06        		.uleb128 0x6
+ 1366 00c6 00        		.byte	0
+ 1367 00c7 00        		.byte	0
+ 1368 00c8 0E        		.uleb128 0xe
+GAS LISTING C:\Users\Artem\AppData\Local\Temp\ccYsrGOs.s 			page 25
+
+
+ 1369 00c9 8982 01   		.uleb128 0x4109
+ 1370 00cc 01        		.byte	0x1
+ 1371 00cd 11        		.uleb128 0x11
+ 1372 00ce 01        		.uleb128 0x1
+ 1373 00cf 31        		.uleb128 0x31
+ 1374 00d0 13        		.uleb128 0x13
+ 1375 00d1 00        		.byte	0
+ 1376 00d2 00        		.byte	0
+ 1377 00d3 0F        		.uleb128 0xf
+ 1378 00d4 8A82 01   		.uleb128 0x410a
+ 1379 00d7 00        		.byte	0
+ 1380 00d8 02        		.uleb128 0x2
+ 1381 00d9 0A        		.uleb128 0xa
+ 1382 00da 9142      		.uleb128 0x2111
+ 1383 00dc 0A        		.uleb128 0xa
+ 1384 00dd 00        		.byte	0
+ 1385 00de 00        		.byte	0
+ 1386 00df 10        		.uleb128 0x10
+ 1387 00e0 2E        		.uleb128 0x2e
+ 1388 00e1 01        		.byte	0x1
+ 1389 00e2 3F        		.uleb128 0x3f
+ 1390 00e3 0C        		.uleb128 0xc
+ 1391 00e4 03        		.uleb128 0x3
+ 1392 00e5 0E        		.uleb128 0xe
+ 1393 00e6 3A        		.uleb128 0x3a
+ 1394 00e7 0B        		.uleb128 0xb
+ 1395 00e8 3B        		.uleb128 0x3b
+ 1396 00e9 0B        		.uleb128 0xb
+ 1397 00ea 27        		.uleb128 0x27
+ 1398 00eb 0C        		.uleb128 0xc
+ 1399 00ec 11        		.uleb128 0x11
+ 1400 00ed 01        		.uleb128 0x1
+ 1401 00ee 12        		.uleb128 0x12
+ 1402 00ef 01        		.uleb128 0x1
+ 1403 00f0 40        		.uleb128 0x40
+ 1404 00f1 06        		.uleb128 0x6
+ 1405 00f2 9742      		.uleb128 0x2117
+ 1406 00f4 0C        		.uleb128 0xc
+ 1407 00f5 01        		.uleb128 0x1
+ 1408 00f6 13        		.uleb128 0x13
+ 1409 00f7 00        		.byte	0
+ 1410 00f8 00        		.byte	0
+ 1411 00f9 11        		.uleb128 0x11
+ 1412 00fa 05        		.uleb128 0x5
+ 1413 00fb 00        		.byte	0
+ 1414 00fc 03        		.uleb128 0x3
+ 1415 00fd 08        		.uleb128 0x8
+ 1416 00fe 3A        		.uleb128 0x3a
+ 1417 00ff 0B        		.uleb128 0xb
+ 1418 0100 3B        		.uleb128 0x3b
+ 1419 0101 0B        		.uleb128 0xb
+ 1420 0102 49        		.uleb128 0x49
+ 1421 0103 13        		.uleb128 0x13
+ 1422 0104 02        		.uleb128 0x2
+ 1423 0105 06        		.uleb128 0x6
+ 1424 0106 00        		.byte	0
+ 1425 0107 00        		.byte	0
+GAS LISTING C:\Users\Artem\AppData\Local\Temp\ccYsrGOs.s 			page 26
+
+
+ 1426 0108 12        		.uleb128 0x12
+ 1427 0109 1D        		.uleb128 0x1d
+ 1428 010a 01        		.byte	0x1
+ 1429 010b 31        		.uleb128 0x31
+ 1430 010c 13        		.uleb128 0x13
+ 1431 010d 11        		.uleb128 0x11
+ 1432 010e 01        		.uleb128 0x1
+ 1433 010f 12        		.uleb128 0x12
+ 1434 0110 01        		.uleb128 0x1
+ 1435 0111 58        		.uleb128 0x58
+ 1436 0112 0B        		.uleb128 0xb
+ 1437 0113 59        		.uleb128 0x59
+ 1438 0114 0B        		.uleb128 0xb
+ 1439 0115 00        		.byte	0
+ 1440 0116 00        		.byte	0
+ 1441 0117 13        		.uleb128 0x13
+ 1442 0118 05        		.uleb128 0x5
+ 1443 0119 00        		.byte	0
+ 1444 011a 31        		.uleb128 0x31
+ 1445 011b 13        		.uleb128 0x13
+ 1446 011c 02        		.uleb128 0x2
+ 1447 011d 06        		.uleb128 0x6
+ 1448 011e 00        		.byte	0
+ 1449 011f 00        		.byte	0
+ 1450 0120 14        		.uleb128 0x14
+ 1451 0121 8982 01   		.uleb128 0x4109
+ 1452 0124 01        		.byte	0x1
+ 1453 0125 11        		.uleb128 0x11
+ 1454 0126 01        		.uleb128 0x1
+ 1455 0127 31        		.uleb128 0x31
+ 1456 0128 13        		.uleb128 0x13
+ 1457 0129 01        		.uleb128 0x1
+ 1458 012a 13        		.uleb128 0x13
+ 1459 012b 00        		.byte	0
+ 1460 012c 00        		.byte	0
+ 1461 012d 15        		.uleb128 0x15
+ 1462 012e 2E        		.uleb128 0x2e
+ 1463 012f 01        		.byte	0x1
+ 1464 0130 3F        		.uleb128 0x3f
+ 1465 0131 0C        		.uleb128 0xc
+ 1466 0132 03        		.uleb128 0x3
+ 1467 0133 0E        		.uleb128 0xe
+ 1468 0134 3A        		.uleb128 0x3a
+ 1469 0135 0B        		.uleb128 0xb
+ 1470 0136 3B        		.uleb128 0x3b
+ 1471 0137 0B        		.uleb128 0xb
+ 1472 0138 27        		.uleb128 0x27
+ 1473 0139 0C        		.uleb128 0xc
+ 1474 013a 11        		.uleb128 0x11
+ 1475 013b 01        		.uleb128 0x1
+ 1476 013c 12        		.uleb128 0x12
+ 1477 013d 01        		.uleb128 0x1
+ 1478 013e 40        		.uleb128 0x40
+ 1479 013f 0A        		.uleb128 0xa
+ 1480 0140 9742      		.uleb128 0x2117
+ 1481 0142 0C        		.uleb128 0xc
+ 1482 0143 01        		.uleb128 0x1
+GAS LISTING C:\Users\Artem\AppData\Local\Temp\ccYsrGOs.s 			page 27
+
+
+ 1483 0144 13        		.uleb128 0x13
+ 1484 0145 00        		.byte	0
+ 1485 0146 00        		.byte	0
+ 1486 0147 16        		.uleb128 0x16
+ 1487 0148 1D        		.uleb128 0x1d
+ 1488 0149 01        		.byte	0x1
+ 1489 014a 31        		.uleb128 0x31
+ 1490 014b 13        		.uleb128 0x13
+ 1491 014c 11        		.uleb128 0x11
+ 1492 014d 01        		.uleb128 0x1
+ 1493 014e 12        		.uleb128 0x12
+ 1494 014f 01        		.uleb128 0x1
+ 1495 0150 58        		.uleb128 0x58
+ 1496 0151 0B        		.uleb128 0xb
+ 1497 0152 59        		.uleb128 0x59
+ 1498 0153 0B        		.uleb128 0xb
+ 1499 0154 01        		.uleb128 0x1
+ 1500 0155 13        		.uleb128 0x13
+ 1501 0156 00        		.byte	0
+ 1502 0157 00        		.byte	0
+ 1503 0158 17        		.uleb128 0x17
+ 1504 0159 0B        		.uleb128 0xb
+ 1505 015a 01        		.byte	0x1
+ 1506 015b 11        		.uleb128 0x11
+ 1507 015c 01        		.uleb128 0x1
+ 1508 015d 12        		.uleb128 0x12
+ 1509 015e 01        		.uleb128 0x1
+ 1510 015f 00        		.byte	0
+ 1511 0160 00        		.byte	0
+ 1512 0161 18        		.uleb128 0x18
+ 1513 0162 34        		.uleb128 0x34
+ 1514 0163 00        		.byte	0
+ 1515 0164 31        		.uleb128 0x31
+ 1516 0165 13        		.uleb128 0x13
+ 1517 0166 02        		.uleb128 0x2
+ 1518 0167 06        		.uleb128 0x6
+ 1519 0168 00        		.byte	0
+ 1520 0169 00        		.byte	0
+ 1521 016a 19        		.uleb128 0x19
+ 1522 016b 8982 01   		.uleb128 0x4109
+ 1523 016e 00        		.byte	0
+ 1524 016f 11        		.uleb128 0x11
+ 1525 0170 01        		.uleb128 0x1
+ 1526 0171 31        		.uleb128 0x31
+ 1527 0172 13        		.uleb128 0x13
+ 1528 0173 00        		.byte	0
+ 1529 0174 00        		.byte	0
+ 1530 0175 1A        		.uleb128 0x1a
+ 1531 0176 0F        		.uleb128 0xf
+ 1532 0177 00        		.byte	0
+ 1533 0178 0B        		.uleb128 0xb
+ 1534 0179 0B        		.uleb128 0xb
+ 1535 017a 49        		.uleb128 0x49
+ 1536 017b 13        		.uleb128 0x13
+ 1537 017c 00        		.byte	0
+ 1538 017d 00        		.byte	0
+ 1539 017e 1B        		.uleb128 0x1b
+GAS LISTING C:\Users\Artem\AppData\Local\Temp\ccYsrGOs.s 			page 28
+
+
+ 1540 017f 2E        		.uleb128 0x2e
+ 1541 0180 01        		.byte	0x1
+ 1542 0181 3F        		.uleb128 0x3f
+ 1543 0182 0C        		.uleb128 0xc
+ 1544 0183 03        		.uleb128 0x3
+ 1545 0184 0E        		.uleb128 0xe
+ 1546 0185 3A        		.uleb128 0x3a
+ 1547 0186 0B        		.uleb128 0xb
+ 1548 0187 3B        		.uleb128 0x3b
+ 1549 0188 0B        		.uleb128 0xb
+ 1550 0189 27        		.uleb128 0x27
+ 1551 018a 0C        		.uleb128 0xc
+ 1552 018b 11        		.uleb128 0x11
+ 1553 018c 01        		.uleb128 0x1
+ 1554 018d 12        		.uleb128 0x12
+ 1555 018e 01        		.uleb128 0x1
+ 1556 018f 40        		.uleb128 0x40
+ 1557 0190 06        		.uleb128 0x6
+ 1558 0191 9742      		.uleb128 0x2117
+ 1559 0193 0C        		.uleb128 0xc
+ 1560 0194 00        		.byte	0
+ 1561 0195 00        		.byte	0
+ 1562 0196 00        		.byte	0
+ 1563               		.section	.debug_loc,"",@progbits
+ 1564               	.Ldebug_loc0:
+ 1565               	.LLST0:
+ 1566 0000 0000 0000 		.long	.LVL0
+ 1567 0004 0000 0000 		.long	.LVL3
+ 1568 0008 0100      		.word	0x1
+ 1569 000a 68        		.byte	0x68
+ 1570 000b 0000 0000 		.long	.LVL3
+ 1571 000f 0000 0000 		.long	.LFE14
+ 1572 0013 0400      		.word	0x4
+ 1573 0015 F3        		.byte	0xf3
+ 1574 0016 01        		.uleb128 0x1
+ 1575 0017 68        		.byte	0x68
+ 1576 0018 9F        		.byte	0x9f
+ 1577 0019 0000 0000 		.long	0
+ 1578 001d 0000 0000 		.long	0
+ 1579               	.LLST1:
+ 1580 0021 0000 0000 		.long	.LVL1
+ 1581 0025 0000 0000 		.long	.LVL3
+ 1582 0029 0100      		.word	0x1
+ 1583 002b 69        		.byte	0x69
+ 1584 002c 0000 0000 		.long	.LVL3
+ 1585 0030 0000 0000 		.long	.LFE14
+ 1586 0034 0100      		.word	0x1
+ 1587 0036 68        		.byte	0x68
+ 1588 0037 0000 0000 		.long	0
+ 1589 003b 0000 0000 		.long	0
+ 1590               	.LLST2:
+ 1591 003f 0000 0000 		.long	.LVL4
+ 1592 0043 0000 0000 		.long	.LVL5-1
+ 1593 0047 0100      		.word	0x1
+ 1594 0049 68        		.byte	0x68
+ 1595 004a 0000 0000 		.long	.LVL5-1
+ 1596 004e 0000 0000 		.long	.LFE11
+GAS LISTING C:\Users\Artem\AppData\Local\Temp\ccYsrGOs.s 			page 29
+
+
+ 1597 0052 0400      		.word	0x4
+ 1598 0054 F3        		.byte	0xf3
+ 1599 0055 01        		.uleb128 0x1
+ 1600 0056 68        		.byte	0x68
+ 1601 0057 9F        		.byte	0x9f
+ 1602 0058 0000 0000 		.long	0
+ 1603 005c 0000 0000 		.long	0
+ 1604               	.LLST3:
+ 1605 0060 0000 0000 		.long	.LFB10
+ 1606 0064 0000 0000 		.long	.LCFI0
+ 1607 0068 0300      		.word	0x3
+ 1608 006a 92        		.byte	0x92
+ 1609 006b 20        		.uleb128 0x20
+ 1610 006c 02        		.sleb128 2
+ 1611 006d 0000 0000 		.long	.LCFI0
+ 1612 0071 0000 0000 		.long	.LFE10
+ 1613 0075 0300      		.word	0x3
+ 1614 0077 92        		.byte	0x92
+ 1615 0078 20        		.uleb128 0x20
+ 1616 0079 03        		.sleb128 3
+ 1617 007a 0000 0000 		.long	0
+ 1618 007e 0000 0000 		.long	0
+ 1619               	.LLST4:
+ 1620 0082 0000 0000 		.long	.LVL6
+ 1621 0086 0000 0000 		.long	.LVL8
+ 1622 008a 0100      		.word	0x1
+ 1623 008c 68        		.byte	0x68
+ 1624 008d 0000 0000 		.long	.LVL8
+ 1625 0091 0000 0000 		.long	.LVL11
+ 1626 0095 0100      		.word	0x1
+ 1627 0097 6C        		.byte	0x6c
+ 1628 0098 0000 0000 		.long	.LVL11
+ 1629 009c 0000 0000 		.long	.LFE10
+ 1630 00a0 0400      		.word	0x4
+ 1631 00a2 F3        		.byte	0xf3
+ 1632 00a3 01        		.uleb128 0x1
+ 1633 00a4 68        		.byte	0x68
+ 1634 00a5 9F        		.byte	0x9f
+ 1635 00a6 0000 0000 		.long	0
+ 1636 00aa 0000 0000 		.long	0
+ 1637               	.LLST5:
+ 1638 00ae 0000 0000 		.long	.LVL7
+ 1639 00b2 0000 0000 		.long	.LVL8
+ 1640 00b6 0100      		.word	0x1
+ 1641 00b8 68        		.byte	0x68
+ 1642 00b9 0000 0000 		.long	.LVL8
+ 1643 00bd 0000 0000 		.long	.LVL10
+ 1644 00c1 0100      		.word	0x1
+ 1645 00c3 6C        		.byte	0x6c
+ 1646 00c4 0000 0000 		.long	0
+ 1647 00c8 0000 0000 		.long	0
+ 1648               	.LLST6:
+ 1649 00cc 0000 0000 		.long	.LVL12
+ 1650 00d0 0000 0000 		.long	.LVL13
+ 1651 00d4 0600      		.word	0x6
+ 1652 00d6 9E        		.byte	0x9e
+ 1653 00d7 04        		.uleb128 0x4
+GAS LISTING C:\Users\Artem\AppData\Local\Temp\ccYsrGOs.s 			page 30
+
+
+ 1654 00d8 0000 7041 		.long	0x41700000
+ 1655 00dc 0000 0000 		.long	0
+ 1656 00e0 0000 0000 		.long	0
+ 1657               	.LLST7:
+ 1658 00e4 0000 0000 		.long	.LVL12
+ 1659 00e8 0000 0000 		.long	.LVL13
+ 1660 00ec 0600      		.word	0x6
+ 1661 00ee 9E        		.byte	0x9e
+ 1662 00ef 04        		.uleb128 0x4
+ 1663 00f0 0060 EA47 		.long	0x47ea6000
+ 1664 00f4 0000 0000 		.long	0
+ 1665 00f8 0000 0000 		.long	0
+ 1666               	.LLST8:
+ 1667 00fc 0000 0000 		.long	.LVL12
+ 1668 0100 0000 0000 		.long	.LVL13
+ 1669 0104 0600      		.word	0x6
+ 1670 0106 0C        		.byte	0xc
+ 1671 0107 C0D4 0100 		.long	0x1d4c0
+ 1672 010b 9F        		.byte	0x9f
+ 1673 010c 0000 0000 		.long	0
+ 1674 0110 0000 0000 		.long	0
+ 1675               	.LLST9:
+ 1676 0114 0000 0000 		.long	.LVL14
+ 1677 0118 0000 0000 		.long	.LVL15
+ 1678 011c 0600      		.word	0x6
+ 1679 011e 9E        		.byte	0x9e
+ 1680 011f 04        		.uleb128 0x4
+ 1681 0120 0000 A040 		.long	0x40a00000
+ 1682 0124 0000 0000 		.long	0
+ 1683 0128 0000 0000 		.long	0
+ 1684               	.LLST10:
+ 1685 012c 0000 0000 		.long	.LVL14
+ 1686 0130 0000 0000 		.long	.LVL15
+ 1687 0134 0600      		.word	0x6
+ 1688 0136 9E        		.byte	0x9e
+ 1689 0137 04        		.uleb128 0x4
+ 1690 0138 0040 1C47 		.long	0x471c4000
+ 1691 013c 0000 0000 		.long	0
+ 1692 0140 0000 0000 		.long	0
+ 1693               	.LLST11:
+ 1694 0144 0000 0000 		.long	.LVL14
+ 1695 0148 0000 0000 		.long	.LVL15
+ 1696 014c 0400      		.word	0x4
+ 1697 014e 0A        		.byte	0xa
+ 1698 014f 409C      		.word	0x9c40
+ 1699 0151 9F        		.byte	0x9f
+ 1700 0152 0000 0000 		.long	0
+ 1701 0156 0000 0000 		.long	0
+ 1702               	.LLST12:
+ 1703 015a 0000 0000 		.long	.LVL16
+ 1704 015e 0000 0000 		.long	.LVL17
+ 1705 0162 0600      		.word	0x6
+ 1706 0164 9E        		.byte	0x9e
+ 1707 0165 04        		.uleb128 0x4
+ 1708 0166 0000 C842 		.long	0x42c80000
+ 1709 016a 0000 0000 		.long	0
+ 1710 016e 0000 0000 		.long	0
+GAS LISTING C:\Users\Artem\AppData\Local\Temp\ccYsrGOs.s 			page 31
+
+
+ 1711               	.LLST13:
+ 1712 0172 0000 0000 		.long	.LVL16
+ 1713 0176 0000 0000 		.long	.LVL17
+ 1714 017a 0600      		.word	0x6
+ 1715 017c 9E        		.byte	0x9e
+ 1716 017d 04        		.uleb128 0x4
+ 1717 017e 0000 4844 		.long	0x44480000
+ 1718 0182 0000 0000 		.long	0
+ 1719 0186 0000 0000 		.long	0
+ 1720               	.LLST14:
+ 1721 018a 0000 0000 		.long	.LVL16
+ 1722 018e 0000 0000 		.long	.LVL17
+ 1723 0192 0400      		.word	0x4
+ 1724 0194 0A        		.byte	0xa
+ 1725 0195 2003      		.word	0x320
+ 1726 0197 9F        		.byte	0x9f
+ 1727 0198 0000 0000 		.long	0
+ 1728 019c 0000 0000 		.long	0
+ 1729               	.LLST15:
+ 1730 01a0 0000 0000 		.long	.LVL18
+ 1731 01a4 0000 0000 		.long	.LVL19
+ 1732 01a8 0600      		.word	0x6
+ 1733 01aa 9E        		.byte	0x9e
+ 1734 01ab 04        		.uleb128 0x4
+ 1735 01ac 0000 4842 		.long	0x42480000
+ 1736 01b0 0000 0000 		.long	0
+ 1737 01b4 0000 0000 		.long	0
+ 1738               	.LLST16:
+ 1739 01b8 0000 0000 		.long	.LVL18
+ 1740 01bc 0000 0000 		.long	.LVL19
+ 1741 01c0 0600      		.word	0x6
+ 1742 01c2 9E        		.byte	0x9e
+ 1743 01c3 04        		.uleb128 0x4
+ 1744 01c4 0000 C843 		.long	0x43c80000
+ 1745 01c8 0000 0000 		.long	0
+ 1746 01cc 0000 0000 		.long	0
+ 1747               	.LLST17:
+ 1748 01d0 0000 0000 		.long	.LVL18
+ 1749 01d4 0000 0000 		.long	.LVL19
+ 1750 01d8 0400      		.word	0x4
+ 1751 01da 0A        		.byte	0xa
+ 1752 01db 9001      		.word	0x190
+ 1753 01dd 9F        		.byte	0x9f
+ 1754 01de 0000 0000 		.long	0
+ 1755 01e2 0000 0000 		.long	0
+ 1756               	.LLST18:
+ 1757 01e6 0000 0000 		.long	.LVL20
+ 1758 01ea 0000 0000 		.long	.LVL21
+ 1759 01ee 0600      		.word	0x6
+ 1760 01f0 9E        		.byte	0x9e
+ 1761 01f1 04        		.uleb128 0x4
+ 1762 01f2 0000 4842 		.long	0x42480000
+ 1763 01f6 0000 0000 		.long	0
+ 1764 01fa 0000 0000 		.long	0
+ 1765               	.LLST19:
+ 1766 01fe 0000 0000 		.long	.LVL20
+ 1767 0202 0000 0000 		.long	.LVL21
+GAS LISTING C:\Users\Artem\AppData\Local\Temp\ccYsrGOs.s 			page 32
+
+
+ 1768 0206 0600      		.word	0x6
+ 1769 0208 9E        		.byte	0x9e
+ 1770 0209 04        		.uleb128 0x4
+ 1771 020a 0000 C843 		.long	0x43c80000
+ 1772 020e 0000 0000 		.long	0
+ 1773 0212 0000 0000 		.long	0
+ 1774               	.LLST20:
+ 1775 0216 0000 0000 		.long	.LVL20
+ 1776 021a 0000 0000 		.long	.LVL21
+ 1777 021e 0400      		.word	0x4
+ 1778 0220 0A        		.byte	0xa
+ 1779 0221 9001      		.word	0x190
+ 1780 0223 9F        		.byte	0x9f
+ 1781 0224 0000 0000 		.long	0
+ 1782 0228 0000 0000 		.long	0
+ 1783               	.LLST21:
+ 1784 022c 0000 0000 		.long	.LVL22
+ 1785 0230 0000 0000 		.long	.LVL23
+ 1786 0234 0600      		.word	0x6
+ 1787 0236 9E        		.byte	0x9e
+ 1788 0237 04        		.uleb128 0x4
+ 1789 0238 0000 4842 		.long	0x42480000
+ 1790 023c 0000 0000 		.long	0
+ 1791 0240 0000 0000 		.long	0
+ 1792               	.LLST22:
+ 1793 0244 0000 0000 		.long	.LVL22
+ 1794 0248 0000 0000 		.long	.LVL23
+ 1795 024c 0600      		.word	0x6
+ 1796 024e 9E        		.byte	0x9e
+ 1797 024f 04        		.uleb128 0x4
+ 1798 0250 0000 C843 		.long	0x43c80000
+ 1799 0254 0000 0000 		.long	0
+ 1800 0258 0000 0000 		.long	0
+ 1801               	.LLST23:
+ 1802 025c 0000 0000 		.long	.LVL22
+ 1803 0260 0000 0000 		.long	.LVL23
+ 1804 0264 0400      		.word	0x4
+ 1805 0266 0A        		.byte	0xa
+ 1806 0267 9001      		.word	0x190
+ 1807 0269 9F        		.byte	0x9f
+ 1808 026a 0000 0000 		.long	0
+ 1809 026e 0000 0000 		.long	0
+ 1810               	.LLST24:
+ 1811 0272 0000 0000 		.long	.LVL24
+ 1812 0276 0000 0000 		.long	.LVL25
+ 1813 027a 0600      		.word	0x6
+ 1814 027c 9E        		.byte	0x9e
+ 1815 027d 04        		.uleb128 0x4
+ 1816 027e 0000 0040 		.long	0x40000000
+ 1817 0282 0000 0000 		.long	0
+ 1818 0286 0000 0000 		.long	0
+ 1819               	.LLST25:
+ 1820 028a 0000 0000 		.long	.LVL24
+ 1821 028e 0000 0000 		.long	.LVL25
+ 1822 0292 0600      		.word	0x6
+ 1823 0294 9E        		.byte	0x9e
+ 1824 0295 04        		.uleb128 0x4
+GAS LISTING C:\Users\Artem\AppData\Local\Temp\ccYsrGOs.s 			page 33
+
+
+ 1825 0296 0000 7A46 		.long	0x467a0000
+ 1826 029a 0000 0000 		.long	0
+ 1827 029e 0000 0000 		.long	0
+ 1828               	.LLST26:
+ 1829 02a2 0000 0000 		.long	.LVL24
+ 1830 02a6 0000 0000 		.long	.LVL25
+ 1831 02aa 0400      		.word	0x4
+ 1832 02ac 0A        		.byte	0xa
+ 1833 02ad 803E      		.word	0x3e80
+ 1834 02af 9F        		.byte	0x9f
+ 1835 02b0 0000 0000 		.long	0
+ 1836 02b4 0000 0000 		.long	0
+ 1837               	.LLST27:
+ 1838 02b8 0000 0000 		.long	.LVL25
+ 1839 02bc 0000 0000 		.long	.LVL26
+ 1840 02c0 0600      		.word	0x6
+ 1841 02c2 9E        		.byte	0x9e
+ 1842 02c3 04        		.uleb128 0x4
+ 1843 02c4 0000 4842 		.long	0x42480000
+ 1844 02c8 0000 0000 		.long	0
+ 1845 02cc 0000 0000 		.long	0
+ 1846               	.LLST28:
+ 1847 02d0 0000 0000 		.long	.LVL25
+ 1848 02d4 0000 0000 		.long	.LVL26
+ 1849 02d8 0600      		.word	0x6
+ 1850 02da 9E        		.byte	0x9e
+ 1851 02db 04        		.uleb128 0x4
+ 1852 02dc 0000 C843 		.long	0x43c80000
+ 1853 02e0 0000 0000 		.long	0
+ 1854 02e4 0000 0000 		.long	0
+ 1855               	.LLST29:
+ 1856 02e8 0000 0000 		.long	.LVL25
+ 1857 02ec 0000 0000 		.long	.LVL26
+ 1858 02f0 0400      		.word	0x4
+ 1859 02f2 0A        		.byte	0xa
+ 1860 02f3 9001      		.word	0x190
+ 1861 02f5 9F        		.byte	0x9f
+ 1862 02f6 0000 0000 		.long	0
+ 1863 02fa 0000 0000 		.long	0
+ 1864               	.LLST30:
+ 1865 02fe 0000 0000 		.long	.LVL28
+ 1866 0302 0000 0000 		.long	.LVL29
+ 1867 0306 0100      		.word	0x1
+ 1868 0308 68        		.byte	0x68
+ 1869 0309 0000 0000 		.long	.LVL29
+ 1870 030d 0000 0000 		.long	.LFE9
+ 1871 0311 0400      		.word	0x4
+ 1872 0313 F3        		.byte	0xf3
+ 1873 0314 01        		.uleb128 0x1
+ 1874 0315 68        		.byte	0x68
+ 1875 0316 9F        		.byte	0x9f
+ 1876 0317 0000 0000 		.long	0
+ 1877 031b 0000 0000 		.long	0
+ 1878               	.LLST31:
+ 1879 031f 0000 0000 		.long	.LVL28
+ 1880 0323 0000 0000 		.long	.LVL29
+ 1881 0327 0600      		.word	0x6
+GAS LISTING C:\Users\Artem\AppData\Local\Temp\ccYsrGOs.s 			page 34
+
+
+ 1882 0329 88        		.byte	0x88
+ 1883 032a 00        		.sleb128 0
+ 1884 032b 09        		.byte	0x9
+ 1885 032c 80        		.byte	0x80
+ 1886 032d 21        		.byte	0x21
+ 1887 032e 9F        		.byte	0x9f
+ 1888 032f 0000 0000 		.long	.LVL29
+ 1889 0333 0000 0000 		.long	.LVL30-1
+ 1890 0337 0100      		.word	0x1
+ 1891 0339 68        		.byte	0x68
+ 1892 033a 0000 0000 		.long	.LVL30-1
+ 1893 033e 0000 0000 		.long	.LFE9
+ 1894 0342 0700      		.word	0x7
+ 1895 0344 F3        		.byte	0xf3
+ 1896 0345 01        		.uleb128 0x1
+ 1897 0346 68        		.byte	0x68
+ 1898 0347 09        		.byte	0x9
+ 1899 0348 80        		.byte	0x80
+ 1900 0349 21        		.byte	0x21
+ 1901 034a 9F        		.byte	0x9f
+ 1902 034b 0000 0000 		.long	0
+ 1903 034f 0000 0000 		.long	0
+ 1904               	.LLST32:
+ 1905 0353 0000 0000 		.long	.LFB12
+ 1906 0357 0000 0000 		.long	.LCFI1
+ 1907 035b 0300      		.word	0x3
+ 1908 035d 92        		.byte	0x92
+ 1909 035e 20        		.uleb128 0x20
+ 1910 035f 02        		.sleb128 2
+ 1911 0360 0000 0000 		.long	.LCFI1
+ 1912 0364 0000 0000 		.long	.LFE12
+ 1913 0368 0300      		.word	0x3
+ 1914 036a 92        		.byte	0x92
+ 1915 036b 20        		.uleb128 0x20
+ 1916 036c 03        		.sleb128 3
+ 1917 036d 0000 0000 		.long	0
+ 1918 0371 0000 0000 		.long	0
+ 1919               	.LLST33:
+ 1920 0375 0000 0000 		.long	.LVL31
+ 1921 0379 0000 0000 		.long	.LVL33
+ 1922 037d 0100      		.word	0x1
+ 1923 037f 68        		.byte	0x68
+ 1924 0380 0000 0000 		.long	.LVL33
+ 1925 0384 0000 0000 		.long	.LVL36
+ 1926 0388 0100      		.word	0x1
+ 1927 038a 6C        		.byte	0x6c
+ 1928 038b 0000 0000 		.long	.LVL36
+ 1929 038f 0000 0000 		.long	.LFE12
+ 1930 0393 0400      		.word	0x4
+ 1931 0395 F3        		.byte	0xf3
+ 1932 0396 01        		.uleb128 0x1
+ 1933 0397 68        		.byte	0x68
+ 1934 0398 9F        		.byte	0x9f
+ 1935 0399 0000 0000 		.long	0
+ 1936 039d 0000 0000 		.long	0
+ 1937               	.LLST34:
+ 1938 03a1 0000 0000 		.long	.LVL32
+GAS LISTING C:\Users\Artem\AppData\Local\Temp\ccYsrGOs.s 			page 35
+
+
+ 1939 03a5 0000 0000 		.long	.LVL33
+ 1940 03a9 0100      		.word	0x1
+ 1941 03ab 68        		.byte	0x68
+ 1942 03ac 0000 0000 		.long	.LVL33
+ 1943 03b0 0000 0000 		.long	.LVL35
+ 1944 03b4 0100      		.word	0x1
+ 1945 03b6 6C        		.byte	0x6c
+ 1946 03b7 0000 0000 		.long	0
+ 1947 03bb 0000 0000 		.long	0
+ 1948               	.LLST35:
+ 1949 03bf 0000 0000 		.long	.LFB7
+ 1950 03c3 0000 0000 		.long	.LCFI2
+ 1951 03c7 0300      		.word	0x3
+ 1952 03c9 92        		.byte	0x92
+ 1953 03ca 20        		.uleb128 0x20
+ 1954 03cb 02        		.sleb128 2
+ 1955 03cc 0000 0000 		.long	.LCFI2
+ 1956 03d0 0000 0000 		.long	.LCFI3
+ 1957 03d4 0300      		.word	0x3
+ 1958 03d6 92        		.byte	0x92
+ 1959 03d7 20        		.uleb128 0x20
+ 1960 03d8 03        		.sleb128 3
+ 1961 03d9 0000 0000 		.long	.LCFI3
+ 1962 03dd 0000 0000 		.long	.LCFI4
+ 1963 03e1 0300      		.word	0x3
+ 1964 03e3 92        		.byte	0x92
+ 1965 03e4 20        		.uleb128 0x20
+ 1966 03e5 04        		.sleb128 4
+ 1967 03e6 0000 0000 		.long	.LCFI4
+ 1968 03ea 0000 0000 		.long	.LCFI5
+ 1969 03ee 0300      		.word	0x3
+ 1970 03f0 92        		.byte	0x92
+ 1971 03f1 20        		.uleb128 0x20
+ 1972 03f2 05        		.sleb128 5
+ 1973 03f3 0000 0000 		.long	.LCFI5
+ 1974 03f7 0000 0000 		.long	.LFE7
+ 1975 03fb 0300      		.word	0x3
+ 1976 03fd 92        		.byte	0x92
+ 1977 03fe 20        		.uleb128 0x20
+ 1978 03ff 06        		.sleb128 6
+ 1979 0400 0000 0000 		.long	0
+ 1980 0404 0000 0000 		.long	0
+ 1981               	.LLST36:
+ 1982 0408 0000 0000 		.long	.LVL37
+ 1983 040c 0000 0000 		.long	.LVL39
+ 1984 0410 0600      		.word	0x6
+ 1985 0412 68        		.byte	0x68
+ 1986 0413 93        		.byte	0x93
+ 1987 0414 01        		.uleb128 0x1
+ 1988 0415 69        		.byte	0x69
+ 1989 0416 93        		.byte	0x93
+ 1990 0417 01        		.uleb128 0x1
+ 1991 0418 0000 0000 		.long	.LVL39
+ 1992 041c 0000 0000 		.long	.LVL40
+ 1993 0420 0600      		.word	0x6
+ 1994 0422 6C        		.byte	0x6c
+ 1995 0423 93        		.byte	0x93
+GAS LISTING C:\Users\Artem\AppData\Local\Temp\ccYsrGOs.s 			page 36
+
+
+ 1996 0424 01        		.uleb128 0x1
+ 1997 0425 6D        		.byte	0x6d
+ 1998 0426 93        		.byte	0x93
+ 1999 0427 01        		.uleb128 0x1
+ 2000 0428 0000 0000 		.long	.LVL40
+ 2001 042c 0000 0000 		.long	.LVL41
+ 2002 0430 0300      		.word	0x3
+ 2003 0432 8C        		.byte	0x8c
+ 2004 0433 01        		.sleb128 1
+ 2005 0434 9F        		.byte	0x9f
+ 2006 0435 0000 0000 		.long	.LVL41
+ 2007 0439 0000 0000 		.long	.LVL43
+ 2008 043d 0600      		.word	0x6
+ 2009 043f 6C        		.byte	0x6c
+ 2010 0440 93        		.byte	0x93
+ 2011 0441 01        		.uleb128 0x1
+ 2012 0442 6D        		.byte	0x6d
+ 2013 0443 93        		.byte	0x93
+ 2014 0444 01        		.uleb128 0x1
+ 2015 0445 0000 0000 		.long	0
+ 2016 0449 0000 0000 		.long	0
+ 2017               	.LLST37:
+ 2018 044d 0000 0000 		.long	.LVL37
+ 2019 0451 0000 0000 		.long	.LVL38
+ 2020 0455 0100      		.word	0x1
+ 2021 0457 66        		.byte	0x66
+ 2022 0458 0000 0000 		.long	.LVL38
+ 2023 045c 0000 0000 		.long	.LVL39
+ 2024 0460 0100      		.word	0x1
+ 2025 0462 64        		.byte	0x64
+ 2026 0463 0000 0000 		.long	.LVL39
+ 2027 0467 0000 0000 		.long	.LVL41
+ 2028 046b 0C00      		.word	0xc
+ 2029 046d 8C        		.byte	0x8c
+ 2030 046e 00        		.sleb128 0
+ 2031 046f 20        		.byte	0x20
+ 2032 0470 F3        		.byte	0xf3
+ 2033 0471 01        		.uleb128 0x1
+ 2034 0472 66        		.byte	0x66
+ 2035 0473 22        		.byte	0x22
+ 2036 0474 F3        		.byte	0xf3
+ 2037 0475 01        		.uleb128 0x1
+ 2038 0476 68        		.byte	0x68
+ 2039 0477 22        		.byte	0x22
+ 2040 0478 9F        		.byte	0x9f
+ 2041 0479 0000 0000 		.long	.LVL41
+ 2042 047d 0000 0000 		.long	.LVL42
+ 2043 0481 0B00      		.word	0xb
+ 2044 0483 F3        		.byte	0xf3
+ 2045 0484 01        		.uleb128 0x1
+ 2046 0485 66        		.byte	0x66
+ 2047 0486 8C        		.byte	0x8c
+ 2048 0487 00        		.sleb128 0
+ 2049 0488 1C        		.byte	0x1c
+ 2050 0489 F3        		.byte	0xf3
+ 2051 048a 01        		.uleb128 0x1
+ 2052 048b 68        		.byte	0x68
+GAS LISTING C:\Users\Artem\AppData\Local\Temp\ccYsrGOs.s 			page 37
+
+
+ 2053 048c 22        		.byte	0x22
+ 2054 048d 9F        		.byte	0x9f
+ 2055 048e 0000 0000 		.long	.LVL42
+ 2056 0492 0000 0000 		.long	.LVL43
+ 2057 0496 0C00      		.word	0xc
+ 2058 0498 8C        		.byte	0x8c
+ 2059 0499 00        		.sleb128 0
+ 2060 049a 20        		.byte	0x20
+ 2061 049b F3        		.byte	0xf3
+ 2062 049c 01        		.uleb128 0x1
+ 2063 049d 66        		.byte	0x66
+ 2064 049e 22        		.byte	0x22
+ 2065 049f F3        		.byte	0xf3
+ 2066 04a0 01        		.uleb128 0x1
+ 2067 04a1 68        		.byte	0x68
+ 2068 04a2 22        		.byte	0x22
+ 2069 04a3 9F        		.byte	0x9f
+ 2070 04a4 0000 0000 		.long	0
+ 2071 04a8 0000 0000 		.long	0
+ 2072               	.LLST38:
+ 2073 04ac 0000 0000 		.long	.LVL39
+ 2074 04b0 0000 0000 		.long	.LVL40
+ 2075 04b4 0600      		.word	0x6
+ 2076 04b6 9E        		.byte	0x9e
+ 2077 04b7 04        		.uleb128 0x4
+ 2078 04b8 0000 4842 		.long	0x42480000
+ 2079 04bc 0000 0000 		.long	0
+ 2080 04c0 0000 0000 		.long	0
+ 2081               	.LLST39:
+ 2082 04c4 0000 0000 		.long	.LVL39
+ 2083 04c8 0000 0000 		.long	.LVL40
+ 2084 04cc 0600      		.word	0x6
+ 2085 04ce 9E        		.byte	0x9e
+ 2086 04cf 04        		.uleb128 0x4
+ 2087 04d0 0000 C843 		.long	0x43c80000
+ 2088 04d4 0000 0000 		.long	0
+ 2089 04d8 0000 0000 		.long	0
+ 2090               	.LLST40:
+ 2091 04dc 0000 0000 		.long	.LVL39
+ 2092 04e0 0000 0000 		.long	.LVL40
+ 2093 04e4 0400      		.word	0x4
+ 2094 04e6 0A        		.byte	0xa
+ 2095 04e7 9001      		.word	0x190
+ 2096 04e9 9F        		.byte	0x9f
+ 2097 04ea 0000 0000 		.long	0
+ 2098 04ee 0000 0000 		.long	0
+ 2099               	.LLST41:
+ 2100 04f2 0000 0000 		.long	.LFB8
+ 2101 04f6 0000 0000 		.long	.LCFI6
+ 2102 04fa 0300      		.word	0x3
+ 2103 04fc 92        		.byte	0x92
+ 2104 04fd 20        		.uleb128 0x20
+ 2105 04fe 02        		.sleb128 2
+ 2106 04ff 0000 0000 		.long	.LCFI6
+ 2107 0503 0000 0000 		.long	.LCFI7
+ 2108 0507 0300      		.word	0x3
+ 2109 0509 92        		.byte	0x92
+GAS LISTING C:\Users\Artem\AppData\Local\Temp\ccYsrGOs.s 			page 38
+
+
+ 2110 050a 20        		.uleb128 0x20
+ 2111 050b 03        		.sleb128 3
+ 2112 050c 0000 0000 		.long	.LCFI7
+ 2113 0510 0000 0000 		.long	.LFE8
+ 2114 0514 0300      		.word	0x3
+ 2115 0516 92        		.byte	0x92
+ 2116 0517 20        		.uleb128 0x20
+ 2117 0518 04        		.sleb128 4
+ 2118 0519 0000 0000 		.long	0
+ 2119 051d 0000 0000 		.long	0
+ 2120               	.LLST42:
+ 2121 0521 0000 0000 		.long	.LVL44
+ 2122 0525 0000 0000 		.long	.LVL45
+ 2123 0529 0600      		.word	0x6
+ 2124 052b 68        		.byte	0x68
+ 2125 052c 93        		.byte	0x93
+ 2126 052d 01        		.uleb128 0x1
+ 2127 052e 69        		.byte	0x69
+ 2128 052f 93        		.byte	0x93
+ 2129 0530 01        		.uleb128 0x1
+ 2130 0531 0000 0000 		.long	.LVL45
+ 2131 0535 0000 0000 		.long	.LVL46
+ 2132 0539 0600      		.word	0x6
+ 2133 053b 6C        		.byte	0x6c
+ 2134 053c 93        		.byte	0x93
+ 2135 053d 01        		.uleb128 0x1
+ 2136 053e 6D        		.byte	0x6d
+ 2137 053f 93        		.byte	0x93
+ 2138 0540 01        		.uleb128 0x1
+ 2139 0541 0000 0000 		.long	.LVL46
+ 2140 0545 0000 0000 		.long	.LVL47
+ 2141 0549 0300      		.word	0x3
+ 2142 054b 8C        		.byte	0x8c
+ 2143 054c 01        		.sleb128 1
+ 2144 054d 9F        		.byte	0x9f
+ 2145 054e 0000 0000 		.long	.LVL47
+ 2146 0552 0000 0000 		.long	.LVL49
+ 2147 0556 0600      		.word	0x6
+ 2148 0558 6C        		.byte	0x6c
+ 2149 0559 93        		.byte	0x93
+ 2150 055a 01        		.uleb128 0x1
+ 2151 055b 6D        		.byte	0x6d
+ 2152 055c 93        		.byte	0x93
+ 2153 055d 01        		.uleb128 0x1
+ 2154 055e 0000 0000 		.long	0
+ 2155 0562 0000 0000 		.long	0
+ 2156               	.LLST43:
+ 2157 0566 0000 0000 		.long	.LVL45
+ 2158 056a 0000 0000 		.long	.LVL46
+ 2159 056e 0600      		.word	0x6
+ 2160 0570 9E        		.byte	0x9e
+ 2161 0571 04        		.uleb128 0x4
+ 2162 0572 0000 4842 		.long	0x42480000
+ 2163 0576 0000 0000 		.long	0
+ 2164 057a 0000 0000 		.long	0
+ 2165               	.LLST44:
+ 2166 057e 0000 0000 		.long	.LVL45
+GAS LISTING C:\Users\Artem\AppData\Local\Temp\ccYsrGOs.s 			page 39
+
+
+ 2167 0582 0000 0000 		.long	.LVL46
+ 2168 0586 0600      		.word	0x6
+ 2169 0588 9E        		.byte	0x9e
+ 2170 0589 04        		.uleb128 0x4
+ 2171 058a 0000 C843 		.long	0x43c80000
+ 2172 058e 0000 0000 		.long	0
+ 2173 0592 0000 0000 		.long	0
+ 2174               	.LLST45:
+ 2175 0596 0000 0000 		.long	.LVL45
+ 2176 059a 0000 0000 		.long	.LVL46
+ 2177 059e 0400      		.word	0x4
+ 2178 05a0 0A        		.byte	0xa
+ 2179 05a1 9001      		.word	0x190
+ 2180 05a3 9F        		.byte	0x9f
+ 2181 05a4 0000 0000 		.long	0
+ 2182 05a8 0000 0000 		.long	0
+ 2183               		.section	.debug_aranges,"",@progbits
+ 2184 0000 5400 0000 		.long	0x54
+ 2185 0004 0200      		.word	0x2
+ 2186 0006 0000 0000 		.long	.Ldebug_info0
+ 2187 000a 04        		.byte	0x4
+ 2188 000b 00        		.byte	0
+ 2189 000c 0000      		.word	0
+ 2190 000e 0000      		.word	0
+ 2191 0010 0000 0000 		.long	.LFB14
+ 2192 0014 0E00 0000 		.long	.LFE14-.LFB14
+ 2193 0018 0000 0000 		.long	.LFB11
+ 2194 001c 0800 0000 		.long	.LFE11-.LFB11
+ 2195 0020 0000 0000 		.long	.LFB10
+ 2196 0024 1A00 0000 		.long	.LFE10-.LFB10
+ 2197 0028 0000 0000 		.long	.LFB6
+ 2198 002c 8200 0000 		.long	.LFE6-.LFB6
+ 2199 0030 0000 0000 		.long	.LFB9
+ 2200 0034 0800 0000 		.long	.LFE9-.LFB9
+ 2201 0038 0000 0000 		.long	.LFB12
+ 2202 003c 1A00 0000 		.long	.LFE12-.LFB12
+ 2203 0040 0000 0000 		.long	.LFB7
+ 2204 0044 3C00 0000 		.long	.LFE7-.LFB7
+ 2205 0048 0000 0000 		.long	.LFB8
+ 2206 004c 2800 0000 		.long	.LFE8-.LFB8
+ 2207 0050 0000 0000 		.long	0
+ 2208 0054 0000 0000 		.long	0
+ 2209               		.section	.debug_ranges,"",@progbits
+ 2210               	.Ldebug_ranges0:
+ 2211 0000 0000 0000 		.long	.LFB14
+ 2212 0004 0000 0000 		.long	.LFE14
+ 2213 0008 0000 0000 		.long	.LFB11
+ 2214 000c 0000 0000 		.long	.LFE11
+ 2215 0010 0000 0000 		.long	.LFB10
+ 2216 0014 0000 0000 		.long	.LFE10
+ 2217 0018 0000 0000 		.long	.LFB6
+ 2218 001c 0000 0000 		.long	.LFE6
+ 2219 0020 0000 0000 		.long	.LFB9
+ 2220 0024 0000 0000 		.long	.LFE9
+ 2221 0028 0000 0000 		.long	.LFB12
+ 2222 002c 0000 0000 		.long	.LFE12
+ 2223 0030 0000 0000 		.long	.LFB7
+GAS LISTING C:\Users\Artem\AppData\Local\Temp\ccYsrGOs.s 			page 40
+
+
+ 2224 0034 0000 0000 		.long	.LFE7
+ 2225 0038 0000 0000 		.long	.LFB8
+ 2226 003c 0000 0000 		.long	.LFE8
+ 2227 0040 0000 0000 		.long	0
+ 2228 0044 0000 0000 		.long	0
+ 2229               		.section	.debug_line,"",@progbits
+ 2230               	.Ldebug_line0:
+ 2231 0000 6802 0000 		.section	.debug_str,"MS",@progbits,1
+ 2231      0200 A400 
+ 2231      0000 0201 
+ 2231      FB0E 0A00 
+ 2231      0101 0101 
+ 2232               	.LASF35:
+ 2233 0000 443A 5C45 		.string	"D:\\EASYAVR6\\Lcd"
+ 2233      4153 5941 
+ 2233      5652 365C 
+ 2233      4C63 6400 
+ 2234               	.LASF33:
+ 2235 0010 474E 5520 		.string	"GNU C11 5.4.0 -mn-flash=1 -mno-skip-bug -mmcu=avr5 -g2 -O1 -std=gnu11 -ffunction-sections
+ 2235      4331 3120 
+ 2235      352E 342E 
+ 2235      3020 2D6D 
+ 2235      6E2D 666C 
+ 2236               	.LASF21:
+ 2237 0096 4C63 6453 		.string	"LcdSendByte"
+ 2237      656E 6442 
+ 2237      7974 6500 
+ 2238               	.LASF25:
+ 2239 00a2 4C63 644D 		.string	"LcdMovCursor"
+ 2239      6F76 4375 
+ 2239      7273 6F72 
+ 2239      00
+ 2240               	.LASF28:
+ 2241 00af 4C63 6453 		.string	"LcdSendData"
+ 2241      656E 6444 
+ 2241      6174 6100 
+ 2242               	.LASF14:
+ 2243 00bb 5F5F 7573 		.string	"__us"
+ 2243      00
+ 2244               	.LASF22:
+ 2245 00c0 6279 7465 		.string	"byte"
+ 2245      00
+ 2246               	.LASF16:
+ 2247 00c5 5F5F 6275 		.string	"__builtin_avr_delay_cycles"
+ 2247      696C 7469 
+ 2247      6E5F 6176 
+ 2247      725F 6465 
+ 2247      6C61 795F 
+ 2248               	.LASF29:
+ 2249 00e0 6461 7461 		.string	"data"
+ 2249      00
+ 2250               	.LASF23:
+ 2251 00e5 4C63 6453 		.string	"LcdSendCmd"
+ 2251      656E 6443 
+ 2251      6D64 00
+ 2252               	.LASF1:
+ 2253 00f0 756E 7369 		.string	"unsigned char"
+GAS LISTING C:\Users\Artem\AppData\Local\Temp\ccYsrGOs.s 			page 41
+
+
+ 2253      676E 6564 
+ 2253      2063 6861 
+ 2253      7200 
+ 2254               	.LASF34:
+ 2255 00fe 636F 6465 		.string	"code/lib/lcd16x2.c"
+ 2255      2F6C 6962 
+ 2255      2F6C 6364 
+ 2255      3136 7832 
+ 2255      2E63 00
+ 2256               	.LASF6:
+ 2257 0111 6C6F 6E67 		.string	"long unsigned int"
+ 2257      2075 6E73 
+ 2257      6967 6E65 
+ 2257      6420 696E 
+ 2257      7400 
+ 2258               	.LASF27:
+ 2259 0123 7465 6D70 		.string	"temp"
+ 2259      00
+ 2260               	.LASF13:
+ 2261 0128 5F64 656C 		.string	"_delay_ms"
+ 2261      6179 5F6D 
+ 2261      7300 
+ 2262               	.LASF11:
+ 2263 0132 646F 7562 		.string	"double"
+ 2263      6C65 00
+ 2264               	.LASF17:
+ 2265 0139 4C63 6453 		.string	"LcdSendHfByte"
+ 2265      656E 6448 
+ 2265      6642 7974 
+ 2265      6500 
+ 2266               	.LASF24:
+ 2267 0147 4C63 6449 		.string	"LcdInit"
+ 2267      6E69 7400 
+ 2268               	.LASF36:
+ 2269 014f 4C63 6444 		.string	"LcdDispStr"
+ 2269      6973 7053 
+ 2269      7472 00
+ 2270               	.LASF20:
+ 2271 015a 6866 636D 		.string	"hfcmd"
+ 2271      6400 
+ 2272               	.LASF32:
+ 2273 0160 6275 6653 		.string	"bufSize"
+ 2273      697A 6500 
+ 2274               	.LASF2:
+ 2275 0168 756E 7369 		.string	"unsigned int"
+ 2275      676E 6564 
+ 2275      2069 6E74 
+ 2275      00
+ 2276               	.LASF19:
+ 2277 0175 6866 6279 		.string	"hfbyte"
+ 2277      7465 00
+ 2278               	.LASF12:
+ 2279 017c 5F64 656C 		.string	"_delay_us"
+ 2279      6179 5F75 
+ 2279      7300 
+ 2280               	.LASF8:
+ 2281 0186 6C6F 6E67 		.string	"long long unsigned int"
+GAS LISTING C:\Users\Artem\AppData\Local\Temp\ccYsrGOs.s 			page 42
+
+
+ 2281      206C 6F6E 
+ 2281      6720 756E 
+ 2281      7369 676E 
+ 2281      6564 2069 
+ 2282               	.LASF4:
+ 2283 019d 7569 6E74 		.string	"uint8_t"
+ 2283      385F 7400 
+ 2284               	.LASF18:
+ 2285 01a5 4C63 6453 		.string	"LcdSendHfCmd"
+ 2285      656E 6448 
+ 2285      6643 6D64 
+ 2285      00
+ 2286               	.LASF7:
+ 2287 01b2 6C6F 6E67 		.string	"long long int"
+ 2287      206C 6F6E 
+ 2287      6720 696E 
+ 2287      7400 
+ 2288               	.LASF31:
+ 2289 01c0 7062 7566 		.string	"pbuf"
+ 2289      00
+ 2290               	.LASF10:
+ 2291 01c5 5F5F 7469 		.string	"__ticks_dc"
+ 2291      636B 735F 
+ 2291      6463 00
+ 2292               	.LASF30:
+ 2293 01d0 4C63 6444 		.string	"LcdDispBuf"
+ 2293      6973 7042 
+ 2293      7566 00
+ 2294               	.LASF9:
+ 2295 01db 5F5F 746D 		.string	"__tmp"
+ 2295      7000 
+ 2296               	.LASF5:
+ 2297 01e1 7569 6E74 		.string	"uint32_t"
+ 2297      3332 5F74 
+ 2297      00
+ 2298               	.LASF3:
+ 2299 01ea 6C6F 6E67 		.string	"long int"
+ 2299      2069 6E74 
+ 2299      00
+ 2300               	.LASF0:
+ 2301 01f3 7369 676E 		.string	"signed char"
+ 2301      6564 2063 
+ 2301      6861 7200 
+ 2302               	.LASF26:
+ 2303 01ff 6E65 7750 		.string	"newPos"
+ 2303      6F73 00
+ 2304               	.LASF15:
+ 2305 0206 5F5F 6D73 		.string	"__ms"
+ 2305      00
+ 2306               		.ident	"GCC: (AVR_8_bit_GNU_Toolchain_3.6.2_1778) 5.4.0"
