@@ -78,7 +78,7 @@ int main(void)
     */
     PORTD |= (1 << PD0);  // Включаем PullUp вывода PD0
 
-    uint16_t ubrr = F_CPU / (16 * 19200UL) - 1;  // Задаем значение предделителя
+    uint16_t ubrr = F_CPU / (16UL * 19200) - 1;  // Задаем значение предделителя
     UBRRH         = (uint8_t)(ubrr >> 8);        // UART для скорости 19200
     UBRRL         = (uint8_t)ubrr;
 
