@@ -6,7 +6,7 @@
 #define __AVR_ATmega16__
 #endif
 
-#define F_CPU 8000000
+#define F_CPU 8000000UL
 
 #endif
 // End File --------------------------------------------------------------------
