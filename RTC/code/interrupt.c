@@ -13,7 +13,7 @@ Two-wire Serial Interface Handler
 ISR(TWI_vect)
 {
     // Обработка события на шине i2c
-    // Если флаг установлен флаг завершения чтения rxc модлуля TWI, то
+    // Если установлен флаг завершения чтения модуля TWI rxc, то
     // устанавливаем флаг завершения считывания времени timeRxc
     TwiFlags_t twiFlags = TwiTwsi();
     if (twiFlags.rxc)
