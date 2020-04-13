@@ -17,6 +17,10 @@ endif
 ###############################################################################
 # Source
 ###############################################################################
+# Defines
+DEFINES := __AVR_ATmega16__
+DEFINES += F_CPU=8000000UL
+
 # C includes
 C_INCLUDES:= $(shell find code -type d)
 
@@ -59,7 +63,7 @@ CFLAGS := $(OPT) $(MCU)
 CFLAGS += -ffunction-sections -fdata-sections -fpack-struct -fshort-enums
 CFLAGS += -mshort-calls
 CFLAGS += -std=gnu11
-CFLAGS += -Winline -Wall # -pedantic #-Werror 
+CFLAGS += -Winline -Wall -Wextra #-pedantic #-Werror 
 CFLAGS += -MMD -MP
 
 ###############################################################################
@@ -96,8 +100,9 @@ $(BUILD_DIR)/$(TARGET).elf: $(OBJECTS) Makefile
 	
 	 
 $(BUILD_DIR)/%.o: %.c Makefile | $(BUILD_DIR)
-	@echo $<
-	$(CC) -c $< $(addprefix -I, $(C_INCLUDES)) $(CFLAGS) -o $@
+	@echo $< " "
+	$(CC) -c $< $(addprefix -I, $(C_INCLUDES)) \
+	$(addprefix -D, $(DEFINES)) $(CFLAGS) -o $@	
 
 $(BUILD_DIR): info
 	mkdir -p $@
@@ -126,8 +131,8 @@ info:
 	@echo -e "\033[32;1;40m""Compile flags:""\033[0m" $(CFLAGS)
 	@echo -e "\033[32;1;40m""Linking flags:""\033[0m" $(LFLAGS)
 	@echo
-	@echo $(OBJECTS)
-	@echo 
+	# @echo $(OBJECTS)
+	# @echo 
 
 ###############################################################################
 # dependencies

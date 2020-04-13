@@ -7,7 +7,6 @@
     "files.autoSave": "afterDelay",
     "editor.formatOnType": true,
     "editor.formatOnSave": false,
-    "editor.formatOnPaste": true,
     "editor.tokenColorCustomizations": {
         "textMateRules": [
             {

@@ -17,6 +17,10 @@ endif
 ###############################################################################
 # Source
 ###############################################################################
+# Defines
+DEFINES := __AVR_ATmega16__
+DEFINES += F_CPU=8000000UL
+
 # C includes
 C_INCLUDES:= $(shell find code -type d)
 
@@ -51,14 +55,15 @@ MCU := $(CPU)
 ifeq ($(DEBUG), 1)
 OPT := -O1 -g2
 else
-OPT := -O3
+OPT := -Os
 endif
 
 # Compile gcc flags
 CFLAGS := $(OPT) $(MCU)
 CFLAGS += -ffunction-sections -fdata-sections -fpack-struct -fshort-enums
+CFLAGS += -mshort-calls
 CFLAGS += -std=gnu11
-CFLAGS += -Werror -Wall
+CFLAGS += -Winline -Wall -Wextra #-pedantic #-Werror 
 CFLAGS += -MMD -MP
 
 ###############################################################################
@@ -84,18 +89,20 @@ vpath %.c $(sort $(C_INCLUDES))
 
 # build
 all: $(BUILD_DIR)/$(TARGET).elf	
-	$(OBJCOPY) $(HFLAGS) $< $(BUILD_DIR)/$(TARGET).hex
-	$(OBJDUMP) -h -S $< > $(BUILD_DIR)/$(TARGET).lss
+	$(OBJCOPY) $(HFLAGS) $< $(BUILD_DIR)/$(TARGET).hex	
+	$(OBJDUMP) -P mem-usage -S $< > $(BUILD_DIR)/$(TARGET).lss
 	
 $(BUILD_DIR)/$(TARGET).elf: $(OBJECTS) Makefile	
 	$(CC) $(OBJECTS) $(LFLAGS) -o $@	
 	@echo
 	$(SZ) $@
+	# $(OBJDUMP) -P mem-usage $@
 	
 	 
 $(BUILD_DIR)/%.o: %.c Makefile | $(BUILD_DIR)
-	@echo $<
-	$(CC) -c $< $(addprefix -I, $(C_INCLUDES)) $(CFLAGS) -o $@
+	@echo $< " "
+	$(CC) -c $< $(addprefix -I, $(C_INCLUDES)) \
+	$(addprefix -D, $(DEFINES)) $(CFLAGS) -o $@	
 
 $(BUILD_DIR): info
 	mkdir -p $@

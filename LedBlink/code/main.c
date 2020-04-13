@@ -1,5 +1,3 @@
-#define __AVR_ATmega16__
-#define F_CPU 8000000
 // Includes --------------------------------------------------------------------
 #include <avr/io.h>
 #include <util/delay.h>
