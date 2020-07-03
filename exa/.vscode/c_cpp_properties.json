@@ -1,0 +1,23 @@
+{
+    "configurations": [
+        {
+            "name": "avr-gcc",
+            "includePath": [
+                "${workspaceFolder}/code/**"                
+            ],
+            "windowsSdkVersion": "10.0.17763.0",
+           "compilerPath": "C:/toolchain/avr8/avr8-gnu-toolchain/bin/avr-gcc.exe",
+           "defines": [
+               "__AVR_ATmega16__",
+               "F_CPU=8000000UL"
+           ],
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "gcc-x64",
+            "browse": {
+                "limitSymbolsToIncludedHeaders": true
+            }
+        }
+    ],
+    "version": 4
+}
