@@ -36,11 +36,7 @@ int main(void)
     // PA0...PA7 - входы c PullUp
     DDRA  = 0x00;
     PORTA = 0xFF;
-
-    // Инициализация спящего режима Power Down
-    MCUCR &= ~((1 << SM2) | (1 << SM1) | (1 << SM0) | (1 << SE));
-    MCUCR |= (1 << SM1);
-
+    
     // Инициализация семисегментных индикаторов
     SemsegInit();
 
