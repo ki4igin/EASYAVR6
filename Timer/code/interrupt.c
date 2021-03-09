@@ -19,17 +19,17 @@ ISR(TIMER2_OVF_vect)
     // иначе, если нажата кнопка PB6, то увеличиваем скорость "бегущего огонька";
     // иначе, если нажата кнопка PB7, то уменьшаем скорость "бегущего огонька";
     // иначе, сбрасываем флаг btnOn
-    if (!(PIND & (1 << PIND0)))
+    if ((PIND & (1 << PIND0)) == 0)
     {
         OCR1BL++;
         OCR0++;
     }
-    else if (!(PIND & (1 << PIND1)))
+    else if ((PIND & (1 << PIND1)) == 0)
     {
         OCR1BL--;
         OCR0--;
     }
-    else if (!(PINB & (1 << PINB5)))
+    else if ((PINB & (1 << PINB5)) == 0)
     {
         if (!flag.btnOn)
         {
@@ -37,11 +37,11 @@ ISR(TIMER2_OVF_vect)
             flag.ledDir++;
         }
     }
-    else if (!(PINB & (1 << PINB6)))
+    else if ((PINB & (1 << PINB6)) == 0)
     {
         timerOcr--;
     }
-    else if (!(PINB & (1 << PINB7)))
+    else if ((PINB & (1 << PINB7)) == 0)
     {
         timerOcr++;
     }
