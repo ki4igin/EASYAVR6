@@ -20,9 +20,9 @@ ISR(TIMER2_OVF_vect)
     // данных на индикаторах;
     // иначе, если нажата кнопка PB7 отправляем данные по UART;
     // иначе, сбрасываем флаг нажатия кнопки
-    if (!(PINB & (1 << PINB6)))
+    if ((PINB & (1 << PINB6)) == 0)
     {
-        if (!flag.btnOn)
+        if (flag.btnOn == 0)
         {
             flag.btnOn = 1;
 
@@ -33,9 +33,9 @@ ISR(TIMER2_OVF_vect)
             }
         }
     }
-    else if (!(PINB & (1 << PINB7)))
+    else if ((PINB & (1 << PINB7)) == 0)
     {
-        if (!flag.btnOn)
+        if (flag.btnOn == 0)
         {
             flag.btnOn = 1;
             flag.tx    = 1;
@@ -93,7 +93,7 @@ ISR(USART_RXC_vect)
 {
     // Если приняли первый байт, то сбрасываем счетчик таймера Т1 и включаем его
     // (формируем таймаут приема данных)
-    if (!cntRx)
+    if (cntRx == 0)
     {
         TCNT1 = 0;
         TCCR1B |= (1 << CS10);
