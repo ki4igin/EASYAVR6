@@ -33,7 +33,7 @@ uint8_t dataRx[NBUF_RX] = {0};  // Массив принятых данных
 Flags_t flag = {0};  // Переменная пользовательских флагов
 
 // Function prototypes ---------------------------------------------------------
-static inline uint8_t Crc(uint8_t* pbuf, uint8_t bufSize);
+static inline uint8_t CheckSumCalc(uint8_t* pbuf, uint8_t bufSize);
 
 // Functions -------------------------------------------------------------------
 int main(void)
@@ -54,12 +54,12 @@ int main(void)
     TCCR0 = (1 << CS01) | (1 << CS00);
 
     // Инициализация таймера Т1
-    // Режим: CTC; Предделитель: 1; TOP = ОСR1A = 0xD800
+    // Режим: CTC; Предделитель: 1; TOP = ОСR1A = 0x4E20
     // Разрешение прерывания от блока сравнения
     // ОС1A(PD5) не подключен
     // ОС1B(PD4) не подключен
-    // Время переполнения t = ОСR1A / 8e6 = 6.9 мс
-    OCR1A = 0xD800;
+    // Время переполнения t = ОСR1A / 8e6 = 2.5 мс
+    OCR1A = 0x4E20;
     TIMSK |= (1 << OCIE1A);
     TCCR1B = (1 << WGM12);
 
@@ -109,7 +109,7 @@ int main(void)
 
             *pbuf++ = 0x80;
             *pbuf++ = PINA;
-            *pbuf++ = Crc(bufTx, NBUF_TX - 1);
+            *pbuf++ = CheckSumCalc(bufTx, NBUF_TX - 1);
 
             // Запуск передачи (включение прерывания по опустошению РВВ UDR)
             UCSRB |= (1 << UDRIE);
@@ -121,9 +121,9 @@ int main(void)
             // Вычисление контрольной суммы
             // Если последний байт принятых данных равен контрольной сумме, то
             // копируем данные из буфера приема bufRx в массив данных dataRx
-            uint8_t crc = Crc(bufRx, NBUF_RX - 1);
+            uint8_t checkSum = CheckSumCalc(bufRx, NBUF_RX - 1);
 
-            if (bufRx[NBUF_RX - 1] == crc)
+            if (bufRx[NBUF_RX - 1] == checkSum)
             {
                 uint8_t* pbufRx  = bufRx;
                 uint8_t* pdataRx = dataRx;
@@ -147,13 +147,13 @@ bufSize:    размер массив
 Возвращаемое значение:
 контрольная сумма
 *******************************************************************************/
-static inline uint8_t Crc(uint8_t* pbuf, uint8_t bufSize)
+static inline uint8_t CheckSumCalc(uint8_t* pbuf, uint8_t bufSize)
 {
-    uint8_t crc = 0;
+    uint8_t sum = 0;
     for (uint8_t i = 0; i < bufSize; i++)
     {
-        crc += *pbuf++;
+        sum += *pbuf++;
     }
-    return crc;
+    return sum;
 }
 // End File --------------------------------------------------------------------
