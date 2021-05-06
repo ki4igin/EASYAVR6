@@ -30,6 +30,12 @@ Event_t event;
 
 uint8_t btnOn = 0;
 
+State_t TimeToTimeShow(void)
+{
+    PORTA = 0xAA;
+    return STATE_TEMP_SHOW;
+}
+
 State_t fsmStateTable[STATE_CNT][EVENT_CNT] = {
     [STATE_TIME][EVENT_UP]   = STATE_TEMP,
     [STATE_TIME][EVENT_DOWN] = STATE_TEMP,
@@ -71,7 +77,7 @@ void (*fsmActiomTable[STATE_CNT])() = {
 };
 
 // Functions -------------------------------------------------------------------
-State_t FsmGetNewState(State_t state, Event_t event);
+State_t FsmGetNewState(State_t stateOld, Event_t eventOld);
 void    FsmAction(State_t state);
 
 int main(void)
@@ -87,39 +93,40 @@ int main(void)
     }
 }
 
-State_t FsmGetNewState(State_t state, Event_t event)
+State_t FsmGetNewState(State_t stateOld, Event_t eventOld)
 {
-    return fsmStateTable[state][event];
+    event = EVENT_NONE;
+    return fsmStateTable[stateOld][eventOld];
+}
+
+void FsmAction(State_t state)
+{
+    fsmActiomTable[state]();
 }
 
 // void FsmAction(State_t state)
 // {
-//     fsmActiomTable[state]();
+//     switch (state)
+//     {
+//         case STATE_TIME:
+//             Time();
+//             break;
+//         case STATE_TIME_SHOW:
+//             TimeShow();
+//             break;
+//         case STATE_TIME_SET:
+//             TimeSet();
+//             break;
+//         case STATE_TEMP:
+//             Temp();
+//             break;
+//         case STATE_TEMP_SHOW:
+//             TempShow();
+//             break;
+//         default:
+//             break;
+//     }
 // }
-
-void FsmAction(State_t state)
-{
-    switch (state)
-    {
-        case STATE_TIME:
-            Time();
-            break;
-        case STATE_TIME_SHOW:
-            TimeShow();
-            break;
-        case STATE_TIME_SET:
-            TimeSet();
-            break;
-        case STATE_TEMP:
-            Temp();
-            break;
-        case STATE_TEMP_SHOW:
-            TempShow();
-            break;
-        default:
-            break;
-    }
-}
 
 ISR(TIMER2_OVF_vect)
 {
@@ -129,19 +136,19 @@ ISR(TIMER2_OVF_vect)
         if (btnOn == 0)
         {
             btnOn = 0;
-            if (pin & (1 << PA0))
+            if (pin & (1 << PINA0))
             {
                 event = EVENT_UP;
             }
-            else if (pin & (1 << PA1))
+            else if (pin & (1 << PINA1))
             {
                 event = EVENT_DOWN;
             }
-            else if (pin & (1 << PA2))
+            else if (pin & (1 << PINA2))
             {
                 event = EVENT_BACK;
             }
-            else if (pin & (1 << PA3))
+            else if (pin & (1 << PINA3))
             {
                 event = EVENT_SET;
             }

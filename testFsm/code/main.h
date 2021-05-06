@@ -14,5 +14,10 @@ void TimeShow(){};
 void TimeSet(){};
 void Temp(){};
 void TempShow(){};
+
+static inline void None(void)
+{
+}
+
 #endif
 // End File --------------------------------------------------------------------
