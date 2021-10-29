@@ -25,8 +25,8 @@ typedef enum
 
 // Variables -------------------------------------------------------------------
 volatile static SpiStatus_t spiStatus = SPI_NOINIT;  // Переменная статуса модуля SPI
-static uint8_t*    pbufSpi;                 // Указатель на буфер для обмена
-static uint8_t     bufSizeSpi;              // Размер буфера для обмена
+static uint8_t*             pbufSpi;                 // Указатель на буфер для обмена
+static uint8_t              bufSizeSpi;              // Размер буфера для обмена
 
 // Functions -------------------------------------------------------------------
 /*******************************************************************************
@@ -66,21 +66,24 @@ void SpiInit(void)
 
     sei();
 
-    uint8_t buf[2] = {0};
-    buf[0]         = 0x80 | 0x0F;
-
-    SpiTxRx(buf, sizeof(buf));
-
-    while (spiStatus != SPI_READY)
-    {
-        ;
-    }
-    PORTC = buf[1];
-
-
     while (1)
     {
-        /* code */
+        uint8_t buf[2] = {0};
+        buf[0]         = 0x80 | 0x0F;
+
+        SpiTxRx(buf, sizeof(buf));
+
+        while (spiStatus != SPI_READY)
+        {
+            ;
+        }
+        PORTC = buf[1];
+
+        for (uint16_t i = 0; i < UINT16_MAX; i++)
+        {
+            asm("nop");
+        }
+        
     }
 }
 

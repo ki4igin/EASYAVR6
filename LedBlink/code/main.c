@@ -21,6 +21,7 @@ int main(void)
     DDRB = (1 << DDB5) | (1 << DDB6);
     PORTB &= ~((1 << PORTB5) | (1 << PORTB6));
     Tim0Init();
+
     // Основной цикл
     while (1)
     {
